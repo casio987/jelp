@@ -1,0 +1,344 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "jelp",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "User Auth",
+      "description": "Managing user authentication and authorisation"
+    },
+    {
+      "name": "Review Management",
+      "description": "Creating, deleting and viewing review"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "AuthToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Authorization Bearer Token"
+          }
+        }
+      }
+    },
+    "fields": {
+      "Email": {
+        "type": "string",
+        "example": "anemail@email.com"
+      },
+      "Password": {
+        "type": "string",
+        "example": "averysecurepassword"
+      },
+      "JobTitle": {
+        "type": "string",
+        "description": "Job title",
+        "example": "Frontend Engineer"
+      },
+      "CompanyName": {
+        "type": "string",
+        "description": "Name of company",
+        "example": "Canva"
+      },
+      "InterviewExperience": {
+        "type": "string",
+        "description": "Experience of interview and appliation process",
+        "example": "Was good 10/10 would do again"
+      },
+      "InterviewQuestionsAsked": {
+        "type": "string",
+        "description": "A couple of questions that were asked during a users interview",
+        "example": "Asked me if I had 30YOE... I'm 12... btw XD."
+      },
+      "Rating": {
+        "type": "number",
+        "description": "A number between 1 and 5 that rates an interview or company experience",
+        "example": 5
+      },
+      "OfferReceived": {
+        "type": "boolean",
+        "description": "Whether or not the user, that had posted, received an offer",
+        "example": true
+      },
+      "InterviewReviewId": {
+        "type": "number",
+        "description": "ID of a interview review",
+        "example": 56513315
+      },
+      "AuthorId": {
+        "type": "number",
+        "description": "ID of a user",
+        "example": 420
+      },
+      "CompanyReviewId": {
+        "type": "number",
+        "description": "ID of a company review",
+        "example": 123456
+      },
+      "CompanyExperience": {
+        "type": "string",
+        "description": "Experience whilst working for said company",
+        "example": "Was great! Good vibes and free food :)"
+      },
+      "IsCurrentEmployee": {
+        "type": "boolean",
+        "description": "Whether or not the author, at the time of posting, is an employee",
+        "example": true
+      },
+      "CreatedAt": {
+        "type": "string",
+        "example": "2020-10-31T14:45:21.077Z"
+      }
+    },
+    "parameters": {
+      "AuthRegisterBody": {
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "$ref": "#/components/fields/Email"
+            },
+            "password": {
+              "$ref": "#/components/fields/Password"
+            }
+          }
+        }
+      },
+      "AuthLoginBody": {
+        "name": "Login info",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "$ref": "#/components/fields/Email"
+            },
+            "password": {
+              "$ref": "#/components/fields/Password"
+            }
+          }
+        }
+      },
+      "Authorization": {
+        "name": "Authorization",
+        "in": "header",
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhheWRlbkB1bnN3LmVkdS5hdSIsImlhdCI6MTYwMzk0MzIzMH0.b37PfwlcH_cue6yhgvDt2IiNvhRACf79hTNtacYB94Q"
+        },
+        "required": true,
+        "description": "Bearer [token]"
+      }
+    },
+    "responses": {
+      "200": {
+        "Token": {
+          "description": "OK",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhheWRlbkB1bnN3LmVkdS5hdSIsImlhdCI6MTYwMzk0MzIzMH0.b37PfwlcH_cue6yhgvDt2IiNvhRACf79hTNtacYB94Q"
+              }
+            }
+          }
+        },
+        "Empty": {
+          "description": "OK",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "SelfInterviewReviewsGetAll": {
+          "description": "OK",
+          "schema": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "$ref": "#/components/fields/InterviewReviewId"
+                },
+                "authorId": {
+                  "$ref": "#/components/fields/AuthorId"
+                },
+                "jobTitle": {
+                  "$ref": "#/components/fields/JobTitle"
+                },
+                "atCompany": {
+                  "$ref": "#/components/fields/CompanyName"  
+                },
+                "experience": {
+                  "$ref": "#/components/fields/InterviewExperience"  
+                },
+                "questionsAsked": {
+                  "$ref": "#/components/fields/InterviewQuestionsAsked"  
+                },
+                "rating": {
+                  "$ref": "#/components/fields/Rating"
+                },
+                "offerReceived": {
+                  "$ref": "#/components/fields/OfferReceived"
+                },
+                "createdAt": {
+                  "$ref": "#/components/fields/CreatedAt"
+                }
+              }
+            }
+          }
+        },
+        "SelfCompanyReviewsGetAll": {
+          "description": "OK",
+          "schema": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "$ref": "#/components/fields/CompanyReviewId"
+                },
+                "authorId": {
+                  "$ref": "#/components/fields/AuthorId"
+                },
+                "jobTitle": {
+                  "$ref": "#/components/fields/JobTitle"
+                },
+                "atCompany": {
+                  "$ref": "#/components/fields/CompanyName"  
+                },
+                "experience": {
+                  "$ref": "#/components/fields/CompanyExperience"  
+                },
+                "rating": {
+                  "$ref": "#/components/fields/Rating"
+                },
+                "isCurrentEmployee": {
+                  "$ref": "#/components/fields/IsCurrentEmployee"
+                },
+                "CreatedAt": {
+                  "$ref": "#/components/fields/CreatedAt"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad Input",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Error message returned from server",
+              "example": "Invalid input"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorised",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Error message returned from server",
+              "example": "Invalid Token"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/user/register": {
+      "post": {
+        "summary": "Creates a new user",
+        "tags": [ "User Auth" ],
+        "parameters": [ { "$ref": "#/components/parameters/AuthRegisterBody" } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Token" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "summary": "Logins a user",
+        "tags": [ "User Auth" ],
+        "parameters": [ { "$ref": "#/components/parameters/AuthLoginBody" } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Token" },
+          "400": { "$ref": "#/components/responses/400" }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "summary": "Logs out a user",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "User Auth" ],
+        "parameters": [ { "$ref": "#/components/parameters/Authorization" } ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "403": { "$ref": "#/components/responses/403" }
+        }
+      }
+    },
+    "/review/self/interview": {
+      "get": {
+        "summary": "Gets a list of all interview reviews user has made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SelfInterviewReviewsGetAll" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
+    "/review/self/company": {
+      "get": {
+        "summary": "Gets a list of all company reviews user has made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewsGetAll" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    }
+  }
+}
