@@ -14,8 +14,12 @@
       "description": "Managing user authentication and authorisation"
     },
     {
-      "name": "Review Management",
-      "description": "Creating, deleting and viewing review"
+      "name": "Interview Review Management",
+      "description": "Creating, deleting and viewing interview reviews"
+    },
+    {
+      "name": "Company Review Management",
+      "description": "Creating, deleting and viewing company reviews"
     }
   ],
   "schemes": [
@@ -154,6 +158,83 @@
         },
         "required": true,
         "description": "Bearer [token]"
+      },
+      "CompanyReviewIdQuery": {
+        "name": "Company Review ID",
+        "description": "ID of the company review",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1
+        },
+        "example": 420
+      },
+      "InterviewReviewIdQuery": {
+        "name": "Interview Review ID",
+        "description": "ID of the interview review",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1
+        },
+        "example": 420
+      },
+      "InterviewReviewNewBody": {
+        "name": "Body for creating new interview review",
+        "description": "Body for creating new interview review",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "atCompany": {
+              "$ref": "#/components/fields/CompanyName"
+            },
+            "jobTitle": {
+              "$ref": "#/components/fields/JobTitle"
+            },
+            "experience": {
+              "$ref": "#/components/fields/InterviewExperience"
+            },
+            "questionsAsked": {
+              "$ref": "#/components/fields/InterviewQuestionsAsked"
+            },
+            "rating": {
+              "$ref": "#/components/fields/Rating"
+            },
+            "offerReceived": {
+              "$ref": "#/components/fields/OfferReceived"
+            }
+          }
+        }
+      },
+      "CompanyReviewNewBody": {
+        "name": "Body for creating new company review",
+        "description": "Body for creating new company review",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "atCompany": {
+              "$ref": "#/components/fields/CompanyName"
+            },
+            "jobTitle": {
+              "$ref": "#/components/fields/JobTitle"
+            },
+            "experience": {
+              "$ref": "#/components/fields/CompanyExperience"
+            },
+            "rating": {
+              "$ref": "#/components/fields/Rating"
+            },
+            "isCurrentEmployee": {
+              "$ref": "#/components/fields/IsCurrentEmployee"
+            }
+          }
+        }
       }
     },
     "responses": {
@@ -214,6 +295,41 @@
             }
           }
         },
+        "SelfInterviewReviewGetSingle": {
+          "description": "OK",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/fields/InterviewReviewId"
+              },
+              "authorId": {
+                "$ref": "#/components/fields/AuthorId"
+              },
+              "jobTitle": {
+                "$ref": "#/components/fields/JobTitle"
+              },
+              "atCompany": {
+                "$ref": "#/components/fields/CompanyName"  
+              },
+              "experience": {
+                "$ref": "#/components/fields/InterviewExperience"  
+              },
+              "questionsAsked": {
+                "$ref": "#/components/fields/InterviewQuestionsAsked"
+              },
+              "rating": {
+                "$ref": "#/components/fields/Rating"
+              },
+              "offerReceived": {
+                "$ref": "#/components/fields/OfferReceived"
+              },
+              "CreatedAt": {
+                "$ref": "#/components/fields/CreatedAt"
+              }
+            }
+          }
+        },
         "SelfCompanyReviewsGetAll": {
           "description": "OK",
           "schema": {
@@ -244,6 +360,38 @@
                 "CreatedAt": {
                   "$ref": "#/components/fields/CreatedAt"
                 }
+              }
+            }
+          }
+        },
+        "SelfCompanyReviewGetSingle": {
+          "description": "OK",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/fields/CompanyReviewId"
+              },
+              "authorId": {
+                "$ref": "#/components/fields/AuthorId"
+              },
+              "jobTitle": {
+                "$ref": "#/components/fields/JobTitle"
+              },
+              "atCompany": {
+                "$ref": "#/components/fields/CompanyName"  
+              },
+              "experience": {
+                "$ref": "#/components/fields/CompanyExperience"  
+              },
+              "rating": {
+                "$ref": "#/components/fields/Rating"
+              },
+              "isCurrentEmployee": {
+                "$ref": "#/components/fields/IsCurrentEmployee"
+              },
+              "CreatedAt": {
+                "$ref": "#/components/fields/CreatedAt"
               }
             }
           }
@@ -308,15 +456,15 @@
         "parameters": [ { "$ref": "#/components/parameters/Authorization" } ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/Empty" },
-          "403": { "$ref": "#/components/responses/403" }
+          "401": { "$ref": "#/components/responses/401" }
         }
       }
     },
-    "/review/self/interview": {
+    "/self/interview": {
       "get": {
         "summary": "Gets a list of all interview reviews user has made",
         "security": [{ "bearerAuth": [] }],
-        "tags": [ "Review Management" ],
+        "tags": [ "Interview Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" }
         ],
@@ -324,18 +472,123 @@
           "200": { "$ref": "#/components/responses/200/SelfInterviewReviewsGetAll" },
           "401": { "$ref": "#/components/responses/401" }
         }
+      },
+      "post": {
+        "summary": "Creates a new interview review",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/InterviewReviewNewBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
       }
     },
-    "/review/self/company": {
+    "/self/interview/{interviewReviewId}": {
+      "get": {
+        "summary": "Gets an interview review that the user had made, specified by id",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SelfInterviewReviewGetSingle" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a specific interview review",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }          
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
+    "/self/company": {
       "get": {
         "summary": "Gets a list of all company reviews user has made",
         "security": [{ "bearerAuth": [] }],
-        "tags": [ "Review Management" ],
+        "tags": [ "Company Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/SelfCompanyReviewsGetAll" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      },
+      "post": {
+        "summary": "Creates a new company review",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/CompanyReviewNewBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+
+    },
+    "/self/company/{companyReviewId}": {
+      "get": {
+        "summary": "Gets a company review that the user had made, specified by id",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/CompanyReviewIdQuery" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewGetSingle" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a specific company review",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/CompanyReviewIdQuery" }          
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
+    "/company/{companyReviewId}": {
+      "get": {
+        "summary": "Gets a company review that another user had made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/CompanyReviewIdQuery" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewGetSingle" },
+          "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
       }
