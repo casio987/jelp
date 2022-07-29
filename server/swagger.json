@@ -548,6 +548,22 @@
         }
       }
     },
+    "/interview": {
+      "get": {
+        "summary": "Gets a list of interview reviews that others have made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/OffsetBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/InterviewReviews" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
     "/self/company": {
       "get": {
         "summary": "Gets a list of all company reviews user has made",
@@ -639,6 +655,5 @@
         }
       }
     }
-
   }
 }
