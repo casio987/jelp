@@ -235,6 +235,20 @@
             }
           }
         }
+      },
+      "OffsetBody": {
+        "name": "Request body containing offset for pagination",
+        "description": "Request body containing offset for pagination",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        }
       }
     },
     "responses": {
@@ -258,7 +272,7 @@
             "properties": {}
           }
         },
-        "SelfInterviewReviewsGetAll": {
+        "InterviewReviews": {
           "description": "OK",
           "schema": {
             "type": "array",
@@ -295,7 +309,7 @@
             }
           }
         },
-        "SelfInterviewReviewGetSingle": {
+        "SingleInterviewReview": {
           "description": "OK",
           "schema": {
             "type": "object",
@@ -330,7 +344,7 @@
             }
           }
         },
-        "SelfCompanyReviewsGetAll": {
+        "CompanyReviews": {
           "description": "OK",
           "schema": {
             "type": "array",
@@ -364,7 +378,7 @@
             }
           }
         },
-        "SelfCompanyReviewGetSingle": {
+        "SingleCompanyReview": {
           "description": "OK",
           "schema": {
             "type": "object",
@@ -469,7 +483,7 @@
           { "$ref": "#/components/parameters/Authorization" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/SelfInterviewReviewsGetAll" },
+          "200": { "$ref": "#/components/responses/200/InterviewReviews" },
           "401": { "$ref": "#/components/responses/401" }
         }
       },
@@ -498,7 +512,7 @@
           { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/SelfInterviewReviewGetSingle" },
+          "200": { "$ref": "#/components/responses/200/SingleInterviewReview" },
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
@@ -518,6 +532,22 @@
         }
       }
     },
+    "/interview/{interviewReviewId}": {
+      "get": {
+        "summary": "Gets a interview review that another user had made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/SingleInterviewReview" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
     "/self/company": {
       "get": {
         "summary": "Gets a list of all company reviews user has made",
@@ -527,7 +557,7 @@
           { "$ref": "#/components/parameters/Authorization" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewsGetAll" },
+          "200": { "$ref": "#/components/responses/200/CompanyReviews" },
           "401": { "$ref": "#/components/responses/401" }
         }
       },
@@ -557,7 +587,7 @@
           { "$ref": "#/components/parameters/CompanyReviewIdQuery" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewGetSingle" },
+          "200": { "$ref": "#/components/responses/200/SingleCompanyReview" },
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
@@ -587,11 +617,28 @@
           { "$ref": "#/components/parameters/CompanyReviewIdQuery" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/SelfCompanyReviewGetSingle" },
+          "200": { "$ref": "#/components/responses/200/SingleCompanyReview" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
+    "/company": {
+      "get": {
+        "summary": "Gets a list of company reviews that others have made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/OffsetBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/CompanyReviews" },
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
       }
     }
+
   }
 }
