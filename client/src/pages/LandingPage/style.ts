@@ -44,3 +44,5 @@ export const SecondaryHeading = styled('h2')`
   font-size: 4rem;
   color: ${Palette.jelpRed};
 `;
+
+// TODO: make responsive

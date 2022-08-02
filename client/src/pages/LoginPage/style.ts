@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { styled } from "@mui/system";
 import { Palette } from "../../components/Palette";
 
-export const SignUpPageContainer = styled('div')`
+export const LoginPageContainer = styled('div')`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -26,12 +26,10 @@ export const LogoText = styled('h1')`
 export const SubText = styled('h2')`
   font-weight: normal;
   font-size: 2rem;
-  margin-bottom: 0;
-`;
 
-export const SubSubText = styled('h3')`
-  font-weight: normal;
-  font-size: 1.25rem;
+  > span {
+    color: ${Palette.jelpRed};
+  }
 `;
 
 export const InputField = styled(TextField)`
@@ -39,7 +37,7 @@ export const InputField = styled(TextField)`
   margin-bottom: 1rem;
 `;
 
-export const SignUpButton = styled('button')`
+export const LoginButton = styled('button')`
   color: white;
   background-color: ${Palette.jelpBrightRed};
   border: none;

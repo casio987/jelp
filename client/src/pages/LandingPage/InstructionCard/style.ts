@@ -38,3 +38,5 @@ export const SubText = styled('p')`
   color: ${Palette.jelpGray};
   margin: 0;
 `;
+
+// TODO: make responsive

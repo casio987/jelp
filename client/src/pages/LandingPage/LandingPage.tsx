@@ -17,6 +17,7 @@ const LandingPage = () => {
             Get started
           </StartedButton>
         </TextContainer>
+        {/* TODO: add image/view of demo usage? */}
       </BannerContainer>
       <SecondaryHeading>How it works</SecondaryHeading>
       {LandingPageInstructions.map((instruction, index) => (
