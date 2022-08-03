@@ -1,21 +1,26 @@
 import express, { Application } from 'express';
 import cors from "cors";
-import mongoose from "mongoose";
-import { IController } from "./src/interfaces/IController";
-import dotenv from "dotenv";
+import { Database } from './src/components/Database';
+import { IRouter } from './src/interfaces/IRouter';
+import { EntityManager } from 'typeorm';
+import { Logger } from "winston";
+import { getLogger } from "./src/components/Logger";
 
-dotenv.config();
 
 export class App {
-  public express: Application;
-  public port: number;
-
-  constructor(controllers: IController[], port: number) {
-    this.express = this.setUpExpress();
+  private express: Application;
+  private port: number;
+  private db = new Database();
+  private manager: EntityManager;
+  private logger: Logger;
+  
+  // TODO: add routers and services
+  constructor(port: number) {
     this.port = port;
-
-    this.initialiseDatabaseConnection();
-    this.initialiseControllers(controllers);
+    this.express = this.setUpExpress();
+    this.manager = this.db.getManager();
+    this.logger = getLogger();
+    // this.setUpRouters();
   }
 
   private setUpExpress = () => {
@@ -27,22 +32,20 @@ export class App {
     return app;
   }
 
-  private initialiseDatabaseConnection = () => {
-    // TODO; get mongodb uri
-    mongoose.connect("" || "asd", () => {
-      console.log('DB connected :)');
-    });
+  // private setUpRouters = (routers: IRouter[]) => {
+  //   routers.forEach((router: IRouter) => {
+  //     this.express.use("/api", router.getRouter());
+  //   })
+  // }
+
+  public start = async () => {
+    this.logger.info('attempting top start server');
+    this.express.listen(this.port);
+    await this.db.start();
+    this.logger.info(`server listening on port ${this.port}`);
   }
 
-  private initialiseControllers = (controllers: IController[]) => {
-    controllers.forEach((controller: IController) => {
-      this.express.use('/api', controller.getRouter());
-    })
-  }
-
-  public listen = () => {
-    this.express.listen(this.port, () => {
-      console.log(`server listening on port ${this.port}`);
-    })
+  public stop = async () => {
+    await this.db.stop();
   }
 }
