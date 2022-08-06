@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
+// TODO: include tokenised routes
 const Router = () => (
     <BrowserRouter>
       <Routes>
