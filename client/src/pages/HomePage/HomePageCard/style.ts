@@ -1,6 +1,7 @@
 import { styled } from "@mui/system";
 import { Palette } from "../../../components/Palette";
 
+// TODO: media queries
 export const HomePageCardContainer = styled('div')`
   display: flex;
   flex-direction: row;

@@ -17,22 +17,22 @@ const HomePage = () => {
       <HomePageCard 
         text="Add a review of your experience at a company"
         imageURL={RateCompanyIcon}
-        handleClick={() => navigate('/rate/company', { replace: true })}
+        handleClick={() => navigate('/rate/company')}
       />
       <HomePageCard 
         text="Add a review of your interview experience at a company"
         imageURL={RateInterviewIcon}
-        handleClick={() => navigate('/rate/interview', { replace: true })}
+        handleClick={() => navigate('/rate/interview')}
       />
       <HomePageCard 
         text="Take a look at what others have said about a company"
         imageURL={ViewReviewsIcon}
-        handleClick={() => navigate('/view/company', { replace: true })}
+        handleClick={() => navigate('/view/company')}
       />
       <HomePageCard 
         text="Need a run down of how your interview might go?"
         imageURL={InterviewIcon}
-        handleClick={() => navigate('/view/interview', { replace: true })}
+        handleClick={() => navigate('/view/interview')}
       />
       <Footer />
     </HomePageContainer>

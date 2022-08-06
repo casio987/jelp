@@ -22,12 +22,12 @@ const Header = () => {
 
   const handleLogout = () => {
     // TODO: remove token
-    navigate('/', { replace: true });
+    navigate('/');
   }
 
   return (
     <HeaderContainer>
-      <Logo onClick={() => navigate('/', { replace: true })}>jelp</Logo>
+      <Logo onClick={() => navigate('/')}>jelp</Logo>
       {/* TODO replace with checking token */}
       {false
         ? 
@@ -44,7 +44,7 @@ const Header = () => {
                 anchorEl={anchorEl}
                 onClose={handleMenuClose}
               >
-                <MenuItem onClick={() => navigate('/profile', { replace: true })}>
+                <MenuItem onClick={() => navigate('/profile')}>
                   Profile 
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
@@ -56,7 +56,7 @@ const Header = () => {
         : (
           <>
             <LoginLink href="/login">Login</LoginLink>
-            <SignUpButton onClick={() => navigate('/signup', { replace: true })}>Sign up</SignUpButton>
+            <SignUpButton onClick={() => navigate('/signup')}>Sign up</SignUpButton>
           </>
         )
       }

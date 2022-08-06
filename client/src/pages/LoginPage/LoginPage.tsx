@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   return (
     <LoginPageContainer>
-      <LogoText onClick={() => navigate('/', { replace: true })}>jelp</LogoText>
+      <LogoText onClick={() => navigate('/')}>jelp</LogoText>
       <SubText>
         Sign in to&nbsp;
         <span>

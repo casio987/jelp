@@ -3,8 +3,10 @@ import { BannerContainer, IntroHeading, LandingPageContainer, SecondaryHeading, 
 import Footer from "../../components/Footer/Footer";
 import InstructionCard from "./InstructionCard/InstructionCard";
 import { LandingPageInstructions } from "../../constants/LandingPageInstructions";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <LandingPageContainer>
       <Header />
@@ -13,7 +15,7 @@ const LandingPage = () => {
           <IntroHeading>Welcome to jelp!</IntroHeading>
           <p>Want to know the ins and outs of applying for a specific company?</p>
           <p>Get a kick-start on your job searching journey!</p>
-          <StartedButton>
+          <StartedButton onClick={() => navigate('/signup')}>
             Get started
           </StartedButton>
         </TextContainer>

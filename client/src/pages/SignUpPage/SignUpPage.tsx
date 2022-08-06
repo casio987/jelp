@@ -13,7 +13,7 @@ const SignUpPage = () => {
   
   return (
     <SignUpPageContainer>
-      <LogoText onClick={() => navigate('/', { replace: true })}>
+      <LogoText onClick={() => navigate('/')}>
         jelp
       </LogoText>
       <SubText>Sign up now</SubText>
