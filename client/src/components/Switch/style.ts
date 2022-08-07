@@ -10,7 +10,7 @@ export const SwitchContainer = styled('div')`
   width: 75%;
   padding: 0 1rem;
   border: 1px solid ${Palette.jelpGray};
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   > p {
     color: ${Palette.jelpGray};

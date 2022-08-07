@@ -11,7 +11,7 @@ export const InstructionCardContainer = styled('div')`
   margin-bottom: 5rem;
   color: ${Palette.jelpRed};
 
-  & :first-child {
+  > :first-of-type {
     margin-right: 1rem;
   }
 

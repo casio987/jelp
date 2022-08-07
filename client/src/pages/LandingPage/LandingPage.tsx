@@ -24,6 +24,7 @@ const LandingPage = () => {
       <SecondaryHeading>How it works</SecondaryHeading>
       {LandingPageInstructions.map((instruction, index) => (
         <InstructionCard
+          key={index}
           imageURL={instruction.imageUrl}
           instructionNo={index + 1}
           headingText={instruction.headingText}
