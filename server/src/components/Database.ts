@@ -16,10 +16,10 @@ export class Database {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      // synchronize: true,
-      // logging: false,
-      // migrations: [],
-      // subscribers: [],
+      synchronize: true,
+      logging: false,
+      migrations: [],
+      subscribers: [],
     })
     this.logger = getLogger();
 
@@ -29,7 +29,7 @@ export class Database {
   ) 
 
   public start = async () => {
-    this.dbConnection.initialize();
+    await this.dbConnection.initialize();
     this.logger.info('started connection to db');
   }
 

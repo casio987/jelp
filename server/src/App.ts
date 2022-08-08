@@ -38,7 +38,7 @@ export class App {
   // }
 
   public start = async () => {
-    this.logger.info('attempting top start server');
+    this.logger.info('attempting to start server');
     this.express.listen(this.port);
     await this.db.start();
     this.logger.info(`server listening on port ${this.port}`);
