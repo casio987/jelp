@@ -15,6 +15,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --production
 
-EXPOSE 8080
+COPY --from=builder /app/dist .
 
-CMD ["npm", "start"]
+EXPOSE 3001
+
+CMD ["npm", "run", "start:production"]
