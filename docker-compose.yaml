@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  server:
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    depends_on:
+      - db
+    ports: 
+      - "3001:3001"
+    expose: 
+      - 3001
+    environment:
+      - API_PORT=3001
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=mysecretpassword
+      - DB_NAME=mydb
+  db:
+    image: postgres:14.4-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword

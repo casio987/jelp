@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { Logger } from "winston";
 import { getLogger } from "./Logger";
+import "dotenv/config";
 
 export class Database {
   private dbConnection: DataSource;
@@ -10,15 +11,15 @@ export class Database {
     this.dbConnection = new DataSource({
       // TODO: update with env fields
       type: "postgres",
-      host: "db",
-      port: 1234,
-      username: "postgres",
-      password: "secretpassword",
-      database: "postgres",
-      synchronize: true,
-      logging: false,
-      migrations: [],
-      subscribers: [],
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      // synchronize: true,
+      // logging: false,
+      // migrations: [],
+      // subscribers: [],
     })
     this.logger = getLogger();
 
