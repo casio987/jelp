@@ -1,10 +1,9 @@
 import express, { Application } from 'express';
 import cors from "cors";
-import { Database } from './src/components/Database';
-import { IRouter } from './src/interfaces/IRouter';
+import { Database } from './components/Database';
 import { EntityManager } from 'typeorm';
 import { Logger } from "winston";
-import { getLogger } from "./src/components/Logger";
+import { getLogger } from "./components/Logger";
 
 
 export class App {
