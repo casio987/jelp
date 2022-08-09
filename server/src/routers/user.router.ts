@@ -1,6 +1,5 @@
 import { Router, NextFunction, Request, Response } from "express";
 import { EntityManager } from "typeorm";
-import { getLogger } from "../components/Logger";
 import { IRouter } from "../interfaces/IRouter";
 import validationMiddleware from "../middleware/validation.middleware";
 import { UserService } from "../services/user.service";
@@ -8,7 +7,6 @@ import { AuthSchema } from "../schemas/user.schema";
 
 export class UserRouter implements IRouter {
   private router: Router = Router();
-  private logger = getLogger();
   private manager: EntityManager;
   private userService: UserService;
 
@@ -45,8 +43,8 @@ export class UserRouter implements IRouter {
   ) => {
     const { email, password } = req.body;
     try {
-      await this.userService.registerUser(email, password);
-      // res.status(201).json(token)
+      const token = await this.userService.registerUser(email, password);
+      res.status(200).json(token);
     } catch (err: any) {
       return next(err);
     }
