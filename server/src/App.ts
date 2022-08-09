@@ -21,7 +21,6 @@ export class App {
     this.manager = this.db.getManager();
     this.logger = getLogger();
 
-    // TODO: add routers and services
     const userRouter = new UserRouter(this.manager);
     
     this.setUpRouters([

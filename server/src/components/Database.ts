@@ -11,7 +11,6 @@ export class Database {
 
   constructor() {
     this.dbConnection = new DataSource({
-      // TODO: update with env fields
       type: "postgres",
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
