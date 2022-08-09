@@ -22,6 +22,10 @@ export const InstructionCardContainer = styled('div')`
 
 export const InstructionImage = styled('img')`
   height: 100%;
+
+  @media(max-width: 900px) {
+    height: 75%;
+  }
 `;
 
 export const TextContainer = styled('div')`
@@ -37,6 +41,8 @@ export const StepText = styled('h2')`
 export const SubText = styled('p')`
   color: ${Palette.jelpGray};
   margin: 0;
-`;
 
-// TODO: make responsive
+  @media(max-width: 900px) {
+    display: none;
+  }
+`;

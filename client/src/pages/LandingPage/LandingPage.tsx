@@ -1,5 +1,5 @@
 import Header from "../../components/Header/Header";
-import { BannerContainer, IntroHeading, LandingPageContainer, SecondaryHeading, StartedButton, TextContainer } from "./style";
+import { BannerContainer, IntroHeading, LandingPageContainer, SecondaryHeading, StartedButton } from "./style";
 import Footer from "../../components/Footer/Footer";
 import InstructionCard from "./InstructionCard/InstructionCard";
 import { LandingPageInstructions } from "../../constants/LandingPageInstructions";
@@ -11,15 +11,12 @@ const LandingPage = () => {
     <LandingPageContainer>
       <Header />
       <BannerContainer>
-        <TextContainer>
-          <IntroHeading>Welcome to jelp!</IntroHeading>
-          <p>Want to know the ins and outs of applying for a specific company?</p>
-          <p>Get a kick-start on your job searching journey!</p>
-          <StartedButton onClick={() => navigate('/signup')}>
-            Get started
-          </StartedButton>
-        </TextContainer>
-        {/* TODO: add image/view of demo usage? */}
+        <IntroHeading>Welcome to jelp!</IntroHeading>
+        <p>Want to know the ins and outs of applying for a specific company?</p>
+        <p>Get a kick-start on your job searching journey!</p>
+        <StartedButton onClick={() => navigate('/signup')}>
+          Get started
+        </StartedButton>
       </BannerContainer>
       <SecondaryHeading>How it works</SecondaryHeading>
       {LandingPageInstructions.map((instruction, index) => (
