@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { CompanyExperienceEntity } from "./companyReview";
+import { InterviewExperienceEntity } from "./interviewReview";
 
 @Entity()
 export class UserEntity {
@@ -11,5 +13,9 @@ export class UserEntity {
   @Column()
   public password: string;
 
-  // TODO: add jobe experience reviews and interview experience
+  @OneToMany(() => InterviewExperienceEntity, interviewExperience => interviewExperience.user)
+  interviewExperiences: InterviewExperienceEntity[];
+
+  @OneToMany(() => CompanyExperienceEntity, CompanyExperienceEntity => CompanyExperienceEntity.user)
+  companyExperiences: CompanyExperienceEntity[];
 }
