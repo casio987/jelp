@@ -13,7 +13,7 @@ const InstructionCard = ({ imageURL, instructionNo, headingText, subText }: Inst
       ?
         (
           <>
-          <InstructionImage src={imageURL} alt="instructionalImage" />
+          <InstructionImage src={imageURL} alt="instructional image" />
           <h2>{instructionNo}</h2>
           <TextContainer>
             <h2>{headingText}</h2>
@@ -28,7 +28,7 @@ const InstructionCard = ({ imageURL, instructionNo, headingText, subText }: Inst
               <h2>{headingText}</h2>
               <SubText>{subText}</SubText>
             </TextContainer>
-            <InstructionImage src={imageURL} alt="instructionalImage" />
+            <InstructionImage src={imageURL} alt="instructional image" />
           </>      
       )
     }

@@ -6,7 +6,14 @@ import RateCompanyPage from "./pages/RateCompanyPage/RateCompanyPage";
 import RateInterviewPage from "./pages/RateInterviewPage/RateInterviewPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
-// TODO: include tokenised routes
+// TODO: check that this works
+// const AuthenticatedRoute = (props: RouteProps) => {
+//   const token = sessionStorage.getItem(process.env.REACT_APP_TOKEN!);
+//   return (
+//     <Route {...props}>{!!token ? props.children : <LoginPage/>}</Route>
+//     );
+// };
+
 const Router = () => (
     <BrowserRouter>
       <Routes>
@@ -16,8 +23,11 @@ const Router = () => (
         <Route path='/home' element={ <HomePage /> } />
         <Route path='/rate/company' element={ <RateCompanyPage /> } />
         <Route path='/rate/interview' element={ <RateInterviewPage /> } />
-        <Route path='/view/company' element={ <div>view company</div> } />
-        <Route path='/view/interview' element={ <div>view interview</div> } />
+        <Route path='/profile' element={ <div>view list of reviews i've made</div> } />
+        <Route path='/view/company/list' element={ <div>view list of company reviews</div> } />
+        <Route path='/view/interview/list' element={ <div>view list of interview reviews</div> } />
+        <Route path='/view/company/:companyReviewId' element={ <div>view a single company review</div> } />
+        <Route path='/view/interview/:interviewReviewId' element={ <div>view a single interview review</div> } />
       </Routes>
     </BrowserRouter>
 );

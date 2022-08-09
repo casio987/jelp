@@ -1,7 +1,6 @@
 import { styled } from "@mui/system";
 import { Palette } from "../../../components/Palette";
 
-// TODO: media queries
 export const HomePageCardContainer = styled('div')`
   display: flex;
   flex-direction: row;
@@ -14,4 +13,24 @@ export const HomePageCardContainer = styled('div')`
   padding: 1rem;
   color: ${Palette.jelpBrightRed};
   cursor: pointer;
+
+  > h3 {
+    font-weight: normal;
+  }
 `;
+
+export const CardImage = styled('img')`
+  height: 5rem;
+  margin-left: auto;
+  margin-right: 2.5rem;
+
+  @media(max-width: 500px) {
+    margin-right: 1rem;
+    height: 3rem;
+  }
+`;
+
+export const ChevronImage = styled('img')`
+  height: 1.5rem;
+`
+
