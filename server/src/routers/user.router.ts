@@ -27,7 +27,7 @@ export class UserRouter implements IRouter {
       .post(
         '/user/login',
         validationMiddleware(AuthSchema),
-        // TODO: service function
+        this.login
       )
       .post(
         '/user/logout',
@@ -50,28 +50,28 @@ export class UserRouter implements IRouter {
     }
   };
 
-  // private login = async (
-  //   req: Request,
-  //   res: Response,
-  //   next: NextFunction,
-  // ) => {
-  //   const { username, password } = req.body;
-  //   try {
-  //     await this.userService.registerUser(username, password);
-  //     // res.status(201).json(token)
-  //   } catch (err: any) {
-  //     return next(err);
-  //   }
-  // };
+  private login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const { email, password } = req.body;
+    try {
+      const token = await this.userService.loginUser(email, password);
+      res.status(200).json(token)
+    } catch (err: any) {
+      return next(err);
+    }
+  };
 
   // private logout = async (
   //   req: Request,
   //   res: Response,
   //   next: NextFunction,
   // ) => {
-  //   const { username, password } = req.body;
+  //   const { email, password } = req.body;
   //   try {
-  //     await this.userService.registerUser(username, password);
+  //     await this.userService.registerUser(email, password);
   //     // res.status(201).json(token)
   //   } catch (err: any) {
   //     return next(err);
