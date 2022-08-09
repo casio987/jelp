@@ -3,7 +3,7 @@ import { EntityManager } from "typeorm";
 import { getLogger } from "../components/Logger";
 import { IRouter } from "../interfaces/IRouter";
 import validationMiddleware from "../middleware/validation.middleware";
-import { UserService } from "../services/Auth.service";
+import { UserService } from "../services/user.service";
 import { AuthSchema } from "../schemas/user.schema";
 
 export class UserRouter implements IRouter {
@@ -43,9 +43,9 @@ export class UserRouter implements IRouter {
     res: Response,
     next: NextFunction,
   ) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-      await this.userService.registerUser(username, password);
+      await this.userService.registerUser(email, password);
       // res.status(201).json(token)
     } catch (err: any) {
       return next(err);

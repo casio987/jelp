@@ -17,6 +17,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=mysecretpassword
       - DB_NAME=postgres
+      - JWT_SECRET=mysecret
   db:
     image: postgres:14.4-alpine
     restart: always
