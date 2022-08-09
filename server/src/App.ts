@@ -4,7 +4,7 @@ import { Database } from './components/Database';
 import { EntityManager } from 'typeorm';
 import { Logger } from "winston";
 import { getLogger } from "./components/Logger";
-import { AuthRouter } from './routers/Auth.router';
+import { UserRouter } from './routers/user.router';
 import { IRouter } from './interfaces/IRouter';
 
 
@@ -22,10 +22,10 @@ export class App {
     this.logger = getLogger();
 
     // TODO: add routers and services
-    const authRouter = new AuthRouter(this.manager);
+    const userRouter = new UserRouter(this.manager);
     
     this.setUpRouters([
-      authRouter
+      userRouter
     ]);
   }
 

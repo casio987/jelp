@@ -2,9 +2,11 @@ import { Router, NextFunction, Request, Response } from "express";
 import { EntityManager } from "typeorm";
 import { getLogger } from "../components/Logger";
 import { IRouter } from "../interfaces/IRouter";
+import validationMiddleware from "../middleware/validation.middleware";
 import { UserService } from "../services/Auth.service";
+import { AuthSchema } from "../schemas/user.schema";
 
-export class AuthRouter implements IRouter {
+export class UserRouter implements IRouter {
   private router: Router = Router();
   private logger = getLogger();
   private manager: EntityManager;
@@ -21,12 +23,12 @@ export class AuthRouter implements IRouter {
     this.router
       .post(
         '/user/register',
-        // TODO: validation middleware
+        validationMiddleware(AuthSchema),
         this.register
       )
       .post(
         '/user/login',
-        // TODO: validation middleware
+        validationMiddleware(AuthSchema),
         // TODO: service function
       )
       .post(
