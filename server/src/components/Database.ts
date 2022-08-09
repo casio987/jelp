@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { Logger } from "winston";
 import { getLogger } from "./Logger";
 import "dotenv/config";
+import { UserEntity } from "../entities/user";
 
 export class Database {
   private dbConnection: DataSource;
@@ -18,6 +19,7 @@ export class Database {
       database: process.env.DB_NAME,
       synchronize: true,
       logging: false,
+      entities: [UserEntity],
       migrations: [],
       subscribers: [],
     })

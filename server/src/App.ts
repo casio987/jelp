@@ -4,6 +4,8 @@ import { Database } from './components/Database';
 import { EntityManager } from 'typeorm';
 import { Logger } from "winston";
 import { getLogger } from "./components/Logger";
+import { AuthRouter } from './routers/Auth.router';
+import { IRouter } from './interfaces/IRouter';
 
 
 export class App {
@@ -13,13 +15,18 @@ export class App {
   private manager: EntityManager;
   private logger: Logger;
   
-  // TODO: add routers and services
   constructor(port: number) {
     this.port = port;
     this.express = this.setUpExpress();
     this.manager = this.db.getManager();
     this.logger = getLogger();
-    // this.setUpRouters();
+
+    // TODO: add routers and services
+    const authRouter = new AuthRouter(this.manager);
+    
+    this.setUpRouters([
+      authRouter
+    ]);
   }
 
   private setUpExpress = () => {
@@ -31,11 +38,11 @@ export class App {
     return app;
   }
 
-  // private setUpRouters = (routers: IRouter[]) => {
-  //   routers.forEach((router: IRouter) => {
-  //     this.express.use("/api", router.getRouter());
-  //   })
-  // }
+  private setUpRouters = (routers: IRouter[]) => {
+    routers.forEach((router: IRouter) => {
+      this.express.use("/api", router.getRouter());
+    })
+  }
 
   public start = async () => {
     this.logger.info('attempting to start server');
