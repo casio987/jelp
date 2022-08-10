@@ -10,6 +10,7 @@ export const LoginPageContainer = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 
   > span {
     align-self: flex-end;

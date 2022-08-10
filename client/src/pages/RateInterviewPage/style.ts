@@ -15,6 +15,7 @@ export const BodyPageContainer = styled('div')`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  text-align: center;
 
   > :first-child {
     align-self: center;
@@ -27,6 +28,10 @@ export const BodyPageContainer = styled('div')`
   > p {
     margin: 0 0 2rem 0;
   }
+
+  @media(max-width: 550px) {
+    padding: 0 1rem;
+  }
 `;
 
 export const TopContainer = styled('div')`
@@ -36,6 +41,14 @@ export const TopContainer = styled('div')`
   width: 40%;
   align-items: center;
   font-size: 1.25rem;
+
+  @media(max-width: 700px) {
+    width: 75%;
+  }
+
+  @media(max-width: 550px) {
+    width: 100%;
+  }
 `;
 
 export const InputField = styled(TextField)`
