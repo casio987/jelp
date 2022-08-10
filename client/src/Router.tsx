@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RateCompanyPage from "./pages/RateCompanyPage/RateCompanyPage";
 import RateInterviewPage from "./pages/RateInterviewPage/RateInterviewPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
@@ -23,7 +24,7 @@ const Router = () => (
         <Route path='/home' element={ <HomePage /> } />
         <Route path='/rate/company' element={ <RateCompanyPage /> } />
         <Route path='/rate/interview' element={ <RateInterviewPage /> } />
-        <Route path='/profile' element={ <div>view list of reviews i've made</div> } />
+        <Route path='/profile' element={ <ProfilePage /> } />
         <Route path='/view/company/list' element={ <div>view list of company reviews</div> } />
         <Route path='/view/interview/list' element={ <div>view list of interview reviews</div> } />
         <Route path='/view/company/:companyReviewId' element={ <div>view a single company review</div> } />

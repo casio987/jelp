@@ -28,6 +28,6 @@ export const OptionButton = styled('button')`
   color: ${Palette.jelpGray};
 
   &:hover {
-    color: ${Palette.jelpRed}
+    color: ${Palette.jelpRed};
   }
 `;
