@@ -34,5 +34,3 @@ export const postRegister = async (email: string, password: string): Promise<IAu
     throw err;
   }
 };
-
-// TODO: postLogout

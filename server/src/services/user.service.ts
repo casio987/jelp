@@ -48,7 +48,6 @@ export class UserService {
         .where("user.email = :email", { email: email })
         .getOne();
 
-      console.log(user);
       if (user) {
         if (hash(password) === user.password) {
           const token = generateToken(user.id);

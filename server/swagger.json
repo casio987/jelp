@@ -462,18 +462,6 @@
         }
       }
     },
-    "/user/logout": {
-      "post": {
-        "summary": "Logs out a user",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "User Auth" ],
-        "parameters": [ { "$ref": "#/components/parameters/Authorization" } ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/Empty" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      }
-    },
     "/self/interview": {
       "get": {
         "summary": "Gets a list of all interview reviews user has made",
