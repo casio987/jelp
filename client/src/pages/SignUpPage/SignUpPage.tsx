@@ -1,33 +1,66 @@
+import { Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { postRegister } from "../../api/auth";
 import { SignUpPageContainer, LogoText, SubText, SubSubText, SignUpButton, RedirectLink, InputField} from "./style";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmedPassword, setConfirmedPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
   const navigate = useNavigate();
 
-  const signUp = () => {
-    console.log(email, password);
+  const signUp = async () => {
+    if (email === "" || password === "") {
+      setError("All fields must be filled.");
+      return;
+    } else if (password !== confirmedPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const { status, data } = await postRegister(email, password);
+      if (status === 200) {
+        // TODO: figure out how to store token
+        navigate('/home');
+      } else {
+        setError(data);
+      }
+    } catch (err: any) {
+      setError("A network error occurred. Please try again.");
+    }
   }
   
   return (
-    <SignUpPageContainer>
-      <LogoText onClick={() => navigate('/')}>
-        jelp
-      </LogoText>
-      <SubText>Sign up now</SubText>
-      <SubSubText>Kick-start your job searching journey with us</SubSubText>
-      <InputField label="Email" onChange={(e) => setEmail(e.target.value)} />
-      <InputField label="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
-      <SignUpButton onClick={() => signUp()}>Sign Up</SignUpButton>
-      <span>
-        Already have an account? &nbsp;
-        <RedirectLink href="/login">
-          Sign in
-        </RedirectLink>
-      </span>
-    </SignUpPageContainer>
+    <>
+      {error !== ""
+        ? (
+          <Alert variant="filled" severity="error" onClose={() => setError("")}>
+            {error}
+          </Alert>        
+        ) : null
+      }
+      <SignUpPageContainer>
+        <LogoText onClick={() => navigate('/')}>
+          jelp
+        </LogoText>
+        <SubText>Sign up now</SubText>
+        <SubSubText>Kick-start your job searching journey with us</SubSubText>
+        <InputField label="Email" error={error !== ""} onChange={(e) => setEmail(e.target.value)} />
+        <InputField label="Password" error={error !== ""} type="password" onChange={(e) => setPassword(e.target.value)} />
+        <InputField label="Confirm password" error={error !== ""} type="password" onChange={(e) => setConfirmedPassword(e.target.value)} />
+        <SignUpButton onClick={() => signUp()}>Sign Up</SignUpButton>
+        <span>
+          Already have an account? &nbsp;
+          <RedirectLink href="/login">
+            Sign in
+          </RedirectLink>
+        </span>
+      </SignUpPageContainer>    
+    </>
   );
 };
 
