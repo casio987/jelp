@@ -46,7 +46,7 @@ export class UserRouter implements IRouter {
       const token = await this.userService.registerUser(email, password);
       res.status(200).json(token);
     } catch (err: any) {
-      return next(err);
+      return res.status(err.status).json(err.message);
     }
   };
 
@@ -60,7 +60,7 @@ export class UserRouter implements IRouter {
       const token = await this.userService.loginUser(email, password);
       res.status(200).json(token)
     } catch (err: any) {
-      return next(err);
+      return res.status(err.status).json(err.message);
     }
   };
 
