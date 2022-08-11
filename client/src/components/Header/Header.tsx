@@ -21,15 +21,14 @@ const Header = () => {
   }
 
   const handleLogout = () => {
-    // TODO: remove token
+    sessionStorage.removeItem(process.env.REACT_APP_TOKEN!);
     navigate('/');
   }
 
   return (
     <HeaderContainer>
       <Logo onClick={() => navigate('/')}>jelp</Logo>
-      {/* TODO replace with checking token */}
-      {false
+      {sessionStorage.getItem(process.env.REACT_APP_TOKEN!)
         ? 
           (
             <>

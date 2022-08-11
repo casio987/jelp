@@ -19,12 +19,11 @@ const LoginPage = () => {
     try {
       const { status, data } = await postLogin(email, password);
       if (status === 200) {
-        // TODO: figure out how to store token
+        sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
         navigate('/home');
       } else {
         setError(data);
       }
-      console.log(status, data);
     } catch (err: any) {
       setError("A network error occurred. Please try again.");
     }

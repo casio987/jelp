@@ -24,7 +24,7 @@ const SignUpPage = () => {
     try {
       const { status, data } = await postRegister(email, password);
       if (status === 200) {
-        // TODO: figure out how to store token
+        sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
         navigate('/home');
       } else {
         setError(data);
