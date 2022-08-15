@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
+import InterviewReviewPage from "./pages/InterviewReviewPage/InterviewReviewPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -28,7 +29,7 @@ const Router = () => (
         <Route path='/view/company/list' element={ <div>view list of company reviews</div> } />
         <Route path='/view/interview/list' element={ <div>view list of interview reviews</div> } />
         <Route path='/view/company/:companyReviewId' element={ <div>view a single company review</div> } />
-        <Route path='/view/interview/:interviewReviewId' element={ <div>view a single interview review</div> } />
+        <Route path='/view/interview/:interviewReviewId' element={ <InterviewReviewPage /> } />
       </Routes>
     </BrowserRouter>
 );
