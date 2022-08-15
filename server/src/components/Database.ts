@@ -3,8 +3,8 @@ import { Logger } from "winston";
 import { getLogger } from "./Logger";
 import "dotenv/config";
 import { UserEntity } from "../entities/user";
-import { CompanyExperienceEntity } from "../entities/companyReview";
-import { InterviewExperienceEntity } from "../entities/interviewReview";
+import { CompanyReviewEntity } from "../entities/companyReview";
+import { InterviewReviewEntity } from "../entities/interviewReview";
 export class Database {
   private dbConnection: DataSource;
   private logger: Logger;
@@ -21,8 +21,8 @@ export class Database {
       logging: false,
       entities: [
         UserEntity,
-        CompanyExperienceEntity,
-        InterviewExperienceEntity
+        CompanyReviewEntity,
+        InterviewReviewEntity
       ],
       migrations: [],
       subscribers: [],

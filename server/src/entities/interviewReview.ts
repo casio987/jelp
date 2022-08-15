@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
 import { UserEntity } from "./user";
 
 @Entity()
-export class InterviewExperienceEntity {
+export class InterviewReviewEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -11,13 +11,13 @@ export class InterviewExperienceEntity {
   user: UserEntity;
 
   @Column()
-  public role: string;
+  public jobTitle: string;
 
   @Column()
   public atCompany: string;
 
   @Column()
-  public applicationInterviewExperience: string;
+  public experience: string;
 
   @Column()
   public questionsAsked: string;
@@ -26,5 +26,8 @@ export class InterviewExperienceEntity {
   public rating: number;
 
   @Column()
+  public offerReceived: boolean;
+
+  @CreateDateColumn()
   public createdAt: Date;
 }

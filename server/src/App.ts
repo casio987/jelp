@@ -6,6 +6,7 @@ import { Logger } from "winston";
 import { getLogger } from "./components/Logger";
 import { UserRouter } from './routers/user.router';
 import { IRouter } from './interfaces/IRouter';
+import { InterviewRouter } from './routers/interview.router';
 
 
 export class App {
@@ -22,9 +23,11 @@ export class App {
     this.logger = getLogger();
 
     const userRouter = new UserRouter(this.manager);
+    const interviewRouter = new InterviewRouter(this.manager);
     
     this.setUpRouters([
-      userRouter
+      userRouter,
+      interviewRouter
     ]);
   }
 
