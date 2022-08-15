@@ -491,20 +491,6 @@
       }
     },
     "/self/interview/{interviewReviewId}": {
-      "get": {
-        "summary": "Gets an interview review that the user had made, specified by id",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "Interview Review Management" ],
-        "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/SingleInterviewReview" },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      },
       "delete": {
         "summary": "Deletes a specific interview review",
         "security": [{ "bearerAuth": [] }],
@@ -582,20 +568,6 @@
 
     },
     "/self/company/{companyReviewId}": {
-      "get": {
-        "summary": "Gets a company review that the user had made, specified by id",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "Company Review Management" ],
-        "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/CompanyReviewIdQuery" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/SingleCompanyReview" },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      },
       "delete": {
         "summary": "Deletes a specific company review",
         "security": [{ "bearerAuth": [] }],

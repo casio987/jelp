@@ -1,5 +1,7 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import { HTTPError } from "../components/Error";
+import { IToken } from "../interfaces/IToken";
 
 export const hash = (password: string): string => {
   return crypto.createHash("sha512").update(password).digest("hex");
@@ -13,10 +15,11 @@ export const generateToken = (id: number): string => {
   return token;
 };
 
-// TODO: update this
-// export const verifyToken = (token: string): boolean => {
-//   const payload = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret);
-
-//   if (payload) // do something
-//   return false;
-// }
+export const verifyToken = (token: string): IToken => {
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret) as IToken;
+    return payload;
+  } catch (err: any) {
+    throw new HTTPError(401, "Unauthorised user.");
+  }
+}
