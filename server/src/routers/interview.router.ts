@@ -22,7 +22,7 @@ export class InterviewRouter implements IRouter {
     this.router
       .get(
         '/self/interview',
-        // auth middleware
+        authenticationMiddleware,
         this.getAllSelfInterviewReviews
       )
       .post(
@@ -33,24 +33,31 @@ export class InterviewRouter implements IRouter {
       )
       .get(
         '/interview/:interviewReviewId',
-        // auth middleware
-        this.getSingleSelfInterviewReview
+        authenticationMiddleware,
+        this.getSingleInterviewReview
       )
       .get(
         '/interview',
-        // auth middleware
+        authenticationMiddleware,
         this.getAllInterviewReviews
       )
   }
 
-  private getAllSelfInterviewReviews = async (
+  private getSingleInterviewReview = async (
     req: Request,
     res: Response,
     next: NextFunction,
   ) => {
+    const { interviewReviewId } = req.params;
+    try {
+      const interviewReview = await this.interviewService.getSingleInterviewReview(interviewReviewId);
+      res.status(200).json(interviewReview);
+    } catch (err: any) {
+      return res.status(err.status).json(err.message);
+    }
   };
 
-  private getSingleSelfInterviewReview = async (
+  private getAllSelfInterviewReviews = async (
     req: Request,
     res: Response,
     next: NextFunction,

@@ -48,4 +48,25 @@ export class InterviewService {
       throw err;
     }
   }
+
+  public getSingleInterviewReview = async (interviewReviewId: string) => {
+    try {
+      this.logger.info(`trying to get interview review ${interviewReviewId}`);
+      const interviewReview = await this.manager
+        .createQueryBuilder(InterviewReviewEntity, "interviewReview")
+        .where("interviewReview.id = :id", { id: interviewReviewId })
+        .getOne();
+
+      if (!interviewReview) {
+        this.logger.info(`Could not find interviewReview with id ${interviewReviewId}.`);
+        throw new HTTPError(404, "The requested resource was not found.");
+      } else {
+        this.logger.info(`Interview review with id ${interviewReviewId} found.`);
+        return interviewReview;
+      }
+    } catch (err: any) {
+      throw err;
+    }
+  }
+
 }
