@@ -74,7 +74,7 @@ export class InterviewRouter implements IRouter {
         rating,
         offerReceived
       );
-      res.status(200).json();
+      res.status(200).json({});
     } catch (err: any) {
       return res.status(err.status).json(err.message);
     }
