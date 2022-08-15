@@ -25,9 +25,17 @@ const Header = () => {
     navigate('/');
   }
 
+  const handleLogoClick = () => {
+    if (sessionStorage.getItem(process.env.REACT_APP_TOKEN!)) {
+      navigate('/home');
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <HeaderContainer>
-      <Logo onClick={() => navigate('/')}>jelp</Logo>
+      <Logo onClick={handleLogoClick}>jelp</Logo>
       {sessionStorage.getItem(process.env.REACT_APP_TOKEN!)
         ? 
           (
