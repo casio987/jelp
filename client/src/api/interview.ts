@@ -10,7 +10,7 @@ export const postInterviewReview = async (
   offerReceived: boolean
 ): Promise<IEmptyResponse> => {
   try {
-    const response = await fetch(`${API_URL}/api/self/interview`, {
+    const response = await fetch(`${API_URL}/api/interview`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

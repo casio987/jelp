@@ -236,19 +236,16 @@
           }
         }
       },
-      "OffsetBody": {
-        "name": "Request body containing offset for pagination",
-        "description": "Request body containing offset for pagination",
-        "in": "body",
+      "PaginationOffsetQuery": {
+        "name": "Offset",
+        "in": "path",
+        "required": true,
         "schema": {
-          "type": "object",
-          "properties": {
-            "offset": {
-              "type": "number",
-              "example": 10
-            }
-          }
-        }
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1
+        },
+        "example": 20
       }
     },
     "responses": {
@@ -462,35 +459,36 @@
         }
       }
     },
-    "/self/interview": {
+    "/self/interview/{offset}": {
       "get": {
         "summary": "Gets a list of all interview reviews user has made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Interview Review Management" ],
         "parameters": [
-          { "$ref": "#/components/parameters/Authorization" }
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/PaginationOffsetQuery" }          
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/InterviewReviews" },
           "401": { "$ref": "#/components/responses/401" }
         }
-      },
-      "post": {
-        "summary": "Creates a new interview review",
+      }
+    },
+    "/interview/{interviewReviewId}": {
+      "get": {
+        "summary": "Gets a single interview review",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Interview Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/InterviewReviewNewBody" }
+          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
         ],
         "responses": {
-          "200": { "$ref": "#/components/responses/200/Empty" },
+          "200": { "$ref": "#/components/responses/200/SingleInterviewReview" },
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
-      }
-    },
-    "/self/interview/{interviewReviewId}": {
+      },
       "delete": {
         "summary": "Deletes a specific interview review",
         "security": [{ "bearerAuth": [] }],
@@ -506,30 +504,14 @@
         }
       }
     },
-    "/interview/{interviewReviewId}": {
+    "/interview/{offset}": {
       "get": {
-        "summary": "Gets a interview review that another user had made",
+        "summary": "Gets a list of interview reviews that have been made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Interview Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/InterviewReviewIdQuery" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/SingleInterviewReview" },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      }
-    },
-    "/interview": {
-      "get": {
-        "summary": "Gets a list of interview reviews that others have made",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "Interview Review Management" ],
-        "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/OffsetBody" }
+          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/InterviewReviews" },
@@ -538,19 +520,39 @@
         }
       }
     },
-    "/self/company": {
+    "/interview": {
+      "post": {
+        "summary": "Creates a new interview review",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/InterviewReviewNewBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+
+    },
+    "/self/company/${offset}": {
       "get": {
         "summary": "Gets a list of all company reviews user has made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Company Review Management" ],
         "parameters": [
-          { "$ref": "#/components/parameters/Authorization" }
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/CompanyReviews" },
           "401": { "$ref": "#/components/responses/401" }
         }
-      },
+      }
+    },
+    "/company": {
       "post": {
         "summary": "Creates a new company review",
         "security": [{ "bearerAuth": [] }],
@@ -565,9 +567,8 @@
           "401": { "$ref": "#/components/responses/401" }
         }
       }
-
-    },
-    "/self/company/{companyReviewId}": {
+    },  
+    "/company/{companyReviewId}": {
       "delete": {
         "summary": "Deletes a specific company review",
         "security": [{ "bearerAuth": [] }],
@@ -581,11 +582,9 @@
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
-      }
-    },
-    "/company/{companyReviewId}": {
+      },
       "get": {
-        "summary": "Gets a company review that another user had made",
+        "summary": "Gets a single company review",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Company Review Management" ],
         "parameters": [
@@ -599,14 +598,14 @@
         }
       }
     },
-    "/company": {
+    "/company/{offset}": {
       "get": {
-        "summary": "Gets a list of company reviews that others have made",
+        "summary": "Gets a list of company reviews that have been made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Company Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/OffsetBody" }
+          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/CompanyReviews" },

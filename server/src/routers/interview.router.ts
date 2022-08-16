@@ -21,12 +21,12 @@ export class InterviewRouter implements IRouter {
   private initialiseRoutes = () => {
     this.router
       .get(
-        '/self/interview',
+        '/self/interview/:offset',
         authenticationMiddleware,
         this.getAllSelfInterviewReviews
       )
       .post(
-        '/self/interview',
+        '/interview',
         authenticationMiddleware,
         validationMiddleware(PostInterviewReviewSchema),
         this.postInterviewReview
@@ -37,7 +37,7 @@ export class InterviewRouter implements IRouter {
         this.getSingleInterviewReview
       )
       .get(
-        '/interview',
+        '/interview/:offset',
         authenticationMiddleware,
         this.getAllInterviewReviews
       )
