@@ -1,8 +1,8 @@
-import { Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../api/auth";
-import { InputField, LoginPageContainer, LogoText, SubText, LoginButton, RedirectLink } from "./style";
+import ErrorPopup from "../../components/Popup/Popup";
+import { InputField, LoginPageContainer, LogoText, SubText, LoginButton, RedirectLink, MainContainer } from "./style";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,15 +30,14 @@ const LoginPage = () => {
   }
 
   return (
-    <>
-      {error !== ""
-        ? (
-          <Alert variant="filled" severity="error" onClose={() => setError("")}>
-            {error}
-          </Alert>        
-        ) : null
-      }
-      <LoginPageContainer>
+    <LoginPageContainer>
+      <ErrorPopup
+        isOpen={error !== ""}
+        popupMessage={error}
+        handleClose={() => setError("")}
+        type="error"
+      />
+      <MainContainer>
         <LogoText onClick={() => navigate('/')}>jelp</LogoText>
         <SubText>
           Sign in to&nbsp;
@@ -56,8 +55,8 @@ const LoginPage = () => {
             Sign up
           </RedirectLink>
         </span>
-      </LoginPageContainer>
-    </>
+      </MainContainer>
+    </LoginPageContainer>
   );
 };
 

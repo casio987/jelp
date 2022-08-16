@@ -3,18 +3,25 @@ import { styled } from "@mui/system";
 import { Palette } from "../../components/Palette";
 
 export const LoginPageContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+`;
+  
+export const MainContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
 
   > span {
     align-self: flex-end;
   }
+
 `;
 
 export const LogoText = styled('h1')`

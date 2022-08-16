@@ -1,8 +1,8 @@
-import { Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../../api/auth";
-import { SignUpPageContainer, LogoText, SubText, SubSubText, SignUpButton, RedirectLink, InputField} from "./style";
+import ErrorPopup from "../../components/Popup/Popup";
+import { SignUpPageContainer, LogoText, SubText, SubSubText, SignUpButton, RedirectLink, InputField, MainBody} from "./style";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -35,15 +35,14 @@ const SignUpPage = () => {
   }
   
   return (
-    <>
-      {error !== ""
-        ? (
-          <Alert variant="filled" severity="error" onClose={() => setError("")}>
-            {error}
-          </Alert>        
-        ) : null
-      }
-      <SignUpPageContainer>
+    <SignUpPageContainer>
+      <ErrorPopup
+        isOpen={error !== ""}
+        popupMessage={error}
+        handleClose={() => setError("")}
+        type="error"
+      />
+      <MainBody>
         <LogoText onClick={() => navigate('/')}>
           jelp
         </LogoText>
@@ -59,8 +58,8 @@ const SignUpPage = () => {
             Sign in
           </RedirectLink>
         </span>
-      </SignUpPageContainer>    
-    </>
+      </MainBody>
+    </SignUpPageContainer>    
   );
 };
 

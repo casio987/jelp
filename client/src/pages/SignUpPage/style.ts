@@ -3,13 +3,18 @@ import { styled } from "@mui/system";
 import { Palette } from "../../components/Palette";
 
 export const SignUpPageContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+`;
+  
+export const MainBody = styled('div')`  
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
 
   > span {
