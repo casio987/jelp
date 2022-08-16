@@ -28,3 +28,17 @@ export interface IInterviewReviewData {
   offerReceived: boolean;
   createdAt: string;
 };
+
+export interface ICompanyResponse {
+  status: number;
+  data: ICompanyReviewData;
+}
+export interface ICompanyReviewData {
+  id: number;
+  jobTitle: string;
+  atCompany: string;
+  experience: string;
+  rating: number;
+  isCurrentEmployee: boolean;
+  createdAt: string;
+}

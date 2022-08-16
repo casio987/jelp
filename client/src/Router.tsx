@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CompanyReviewPage from "./pages/CompanyReviewPage/CompanyReviewPage";
 import HomePage from "./pages/HomePage/HomePage";
 import InterviewReviewPage from "./pages/InterviewReviewPage/InterviewReviewPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -28,7 +29,7 @@ const Router = () => (
         <Route path='/profile' element={ <ProfilePage /> } />
         <Route path='/view/company/list' element={ <div>view list of company reviews</div> } />
         <Route path='/view/interview/list' element={ <div>view list of interview reviews</div> } />
-        <Route path='/view/company/:companyReviewId' element={ <div>view a single company review</div> } />
+        <Route path='/view/company/:companyReviewId' element={ <CompanyReviewPage /> } />
         <Route path='/view/interview/:interviewReviewId' element={ <InterviewReviewPage /> } />
       </Routes>
     </BrowserRouter>

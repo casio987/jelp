@@ -36,7 +36,7 @@ const ReviewPreviewCard = ({
           </Tag>
         </TopContainer>
         <TextContainter>
-          <h4>Application/Interview Experience</h4>
+          <h4>{questionsAsked ? "Application/Interview Experience" : "Company Experience"}</h4>
           <p>{experience}</p>
           {questionsAsked
             ? (
