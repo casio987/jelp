@@ -52,13 +52,13 @@ export const TopCenterContainer = styled('div')`
 `;
 
 type TagProps = {
-  backgroundColor: string;
+  backgroundcolor: string;
 }
 export const Tag = styled('div')<TagProps>`
   border-radius: 1rem;
   padding: 1rem;
   text-align: center;
-  background-color: ${(props: TagProps) => props.backgroundColor};
+  background-color: ${(props: TagProps) => props.backgroundcolor};
   color: white;
   align-self: flex-start;
   justify-self: flex-start;

@@ -71,7 +71,7 @@ const CompanyReviewPage = () => {
                   <Rating value={rating} readOnly />
                 </TopCenterContainer>
                 <Tag
-                  backgroundColor={isCurrentEmployee ? Palette.jelpGreen : Palette.jelpRed}
+                  backgroundcolor={isCurrentEmployee ? Palette.jelpGreen : Palette.jelpRed}
                 >
                   Current employee
                 </Tag>

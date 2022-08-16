@@ -73,7 +73,7 @@ const InterviewReviewPage = () => {
                   <Rating value={rating} readOnly />
                 </TopCenterContainer>
                 <Tag
-                  backgroundColor={offerReceived ? Palette.jelpGreen : Palette.jelpRed}
+                  backgroundcolor={offerReceived ? Palette.jelpGreen : Palette.jelpRed}
                 >
                   Offer received
                 </Tag>
