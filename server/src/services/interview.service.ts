@@ -4,6 +4,8 @@ import { getLogger } from "../components/Logger";
 import { InterviewReviewEntity } from "../entities/interviewReview";
 import { UserEntity } from "../entities/user";
 
+const PAGINATION_LIMIT = 10;
+
 export class InterviewService {
   private manager: EntityManager;
   private logger = getLogger();
@@ -14,8 +16,8 @@ export class InterviewService {
 
   public postInterviewReview = async (
     userId: string,
-    atCompany: string,
     jobTitle: string,
+    atCompany: string,
     experience: string,
     questionsAsked: string,
     rating: number,
@@ -51,7 +53,7 @@ export class InterviewService {
 
   public getSingleInterviewReview = async (interviewReviewId: string) => {
     try {
-      this.logger.info(`trying to get interview review ${interviewReviewId}`);
+      this.logger.info(`Trying to get interview review ${interviewReviewId}`);
       const interviewReview = await this.manager
         .createQueryBuilder(InterviewReviewEntity, "interviewReview")
         .where("interviewReview.id = :id", { id: interviewReviewId })
@@ -63,6 +65,54 @@ export class InterviewService {
       } else {
         this.logger.info(`Interview review with id ${interviewReviewId} found.`);
         return interviewReview;
+      }
+    } catch (err: any) {
+      throw err;
+    }
+  }
+
+  public getSelfInterviewReviews = async (offset: number, userId: string) => {
+    try {
+      const interviewReviews = await this.manager
+        .createQueryBuilder(InterviewReviewEntity, "interviewReview")
+        .select([
+          "interviewReview.id",
+          "interviewReview.jobTitle",
+          "interviewReview.atCompany",
+          "interviewReview.experience",
+          "interviewReview.rating"
+        ])
+        .where("interviewReview.user = :userId", { userId: userId })
+        .take(PAGINATION_LIMIT)
+        .skip(offset)
+        .getMany()
+
+      if (!interviewReviews) {
+        this.logger.info(`Could not find an interview reviews from user with id ${userId}.`);
+        throw new HTTPError(404, "The requested resource was not found.");
+      } else {
+        this.logger.info(`List of interview reviews made by user found.`);
+        return interviewReviews;
+      }
+    } catch (err: any) {
+      throw err;
+    }
+  }
+
+  public getInterviewReviews = async (offset: number) => {
+    try {
+      const interviewReviews = await this.manager
+        .createQueryBuilder(InterviewReviewEntity, "interviewReview")
+        .take(PAGINATION_LIMIT)
+        .skip(offset)
+        .getMany()
+
+      if (!interviewReviews) {
+        this.logger.info(`Could not find any interview reviews.`);
+        throw new HTTPError(404, "The requested resource was not found.");
+      } else {
+        this.logger.info(`List of interview reviews found.`);
+        return interviewReviews;
       }
     } catch (err: any) {
       throw err;

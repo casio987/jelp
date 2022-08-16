@@ -23,7 +23,7 @@ export class InterviewRouter implements IRouter {
       .get(
         '/self/interview/:offset',
         authenticationMiddleware,
-        this.getAllSelfInterviewReviews
+        this.getSelfInterviewReviews
       )
       .post(
         '/interview',
@@ -39,7 +39,7 @@ export class InterviewRouter implements IRouter {
       .get(
         '/interview/:offset',
         authenticationMiddleware,
-        this.getAllInterviewReviews
+        this.getInterviewReviews
       )
   }
 
@@ -57,11 +57,22 @@ export class InterviewRouter implements IRouter {
     }
   };
 
-  private getAllSelfInterviewReviews = async (
-    req: Request,
+  private getSelfInterviewReviews = async (
+    req: IGetUserAuthInfoRequest,
     res: Response,
     next: NextFunction,
   ) => {
+    const userId = req.userId;
+    const { offset } = req.params;
+    try {
+      const interviewReviews = await this.interviewService.getSelfInterviewReviews(
+        parseInt(offset),
+        userId
+      );
+      res.status(200).json(interviewReviews);
+    } catch (err: any) {
+      return res.status(err.status).json(err.message);
+    }
   };
 
   private postInterviewReview = async (
@@ -87,11 +98,18 @@ export class InterviewRouter implements IRouter {
     }
   };
 
-  private getAllInterviewReviews = async (
+  private getInterviewReviews = async (
     req: Request,
     res: Response,
     next: NextFunction,
   ) => {
+    const { offset } = req.params;
+    try {
+      const interviewReviews = await this.interviewService.getInterviewReviews(parseInt(offset));
+      res.status(200).json(interviewReviews);
+    } catch (err: any) {
+      return res.status(err.status).json(err.message);
+    }
   };
 
   public getRouter = () => this.router;
