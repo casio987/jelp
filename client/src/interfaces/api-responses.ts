@@ -5,7 +5,7 @@ export interface IAuthResponse {
 
 export interface IEmptyResponse {
   status: number;
-  data: {} | string;
+  data: {};
 };
 
 export interface IInterviewResponse {

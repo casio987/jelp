@@ -17,15 +17,15 @@ const LoginPage = () => {
     }
 
     try {
-      const { status, data } = await postLogin(email, password);
-      if (status === 200) {
-        sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
-        navigate('/home');
-      } else {
-        setError(data);
-      }
+      const { data } = await postLogin(email, password);
+      sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
+      navigate('/home');
     } catch (err: any) {
-      setError("A network error occurred. Please try again.");
+      setError(
+        err.response
+          ? err.response.data.error
+          : "A network error occurred. Please try again."
+      );
     }
   }
 

@@ -1,5 +1,6 @@
 import { IEmptyResponse, IInterviewResponse, IInterviewsResponse } from "../interfaces/api-responses";
 import { API_URL } from "./config";
+import axios from "axios";
 
 export const postInterviewReview = async (
   atCompany: string,
@@ -10,24 +11,20 @@ export const postInterviewReview = async (
   offerReceived: boolean
 ): Promise<IEmptyResponse> => {
   try {
-    const response = await fetch(`${API_URL}/api/interview`, {
-      method: 'POST',
+    const { status, data } = await axios.post(`${API_URL}/api/interview`, {
+      atCompany,
+      jobTitle,
+      experience,
+      questionsAsked,
+      rating,
+      offerReceived
+    }, 
+    {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)!}`
-      },
-      body: JSON.stringify({
-        atCompany,
-        jobTitle,
-        experience,
-        questionsAsked,
-        rating,
-        offerReceived
-      }),
+        Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
+      }
     });
-
-    const data = await response.json();
-    return { status: response.status, data };
+    return { status, data };
   } catch (err: any) {
     throw err;
   }
@@ -35,16 +32,12 @@ export const postInterviewReview = async (
 
 export const getInterviewReview = async (interviewReviewId: string): Promise<IInterviewResponse> => {
   try {
-    const response = await fetch(`${API_URL}/api/interview/${interviewReviewId}`, {
-      method: 'GET',
+    const { status, data } = await axios.get(`${API_URL}/api/interview/${interviewReviewId}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)!}`
+        Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
     });
-
-    const data = await response.json();
-    return { status: response.status, data };
+    return { status, data };
   } catch (err: any) {
     throw err;
   }
@@ -52,16 +45,12 @@ export const getInterviewReview = async (interviewReviewId: string): Promise<IIn
 
 export const getSelfInterviewReviews = async (offset: number): Promise<IInterviewsResponse> => {
   try {
-    const response = await fetch(`${API_URL}/api/self/interview/${offset}`, {
-      method: 'GET',
+    const { status, data } = await axios.get(`${API_URL}/api/self/interview/${offset}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)!}`
+        Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
     });
-
-    const data = await response.json();
-    return { status: response.status, data };
+    return { status, data };
   } catch (err: any) {
     throw err;
   }
@@ -69,16 +58,12 @@ export const getSelfInterviewReviews = async (offset: number): Promise<IIntervie
 
 export const getInterviewReviews = async (offset: number): Promise<IInterviewsResponse> => {
   try {
-    const response = await fetch(`${API_URL}/api/interview/${offset}`, {
-      method: 'GET',
+    const { status, data } = await axios.get(`${API_URL}/api/interview/${offset}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)!}`
+        Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
     });
-
-    const data = await response.json();
-    return { status: response.status, data };
+    return { status, data };
   } catch (err: any) {
     throw err;
   }

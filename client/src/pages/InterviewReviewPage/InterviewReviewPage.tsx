@@ -26,21 +26,21 @@ const InterviewReviewPage = () => {
 
   const loadInterviewReview = async () => {
     try {
-      const { status, data } = await getInterviewReview(interviewReviewId!);
-      if (status === 200) {
-        setJobTitle(data.jobTitle);
-        setCompanyName(data.atCompany);
-        setExperience(data.experience);
-        setQuestionsAsked(data.questionsAsked);
-        setRating(data.rating);
-        setOfferReceived(data.offerReceived);
-        setDateOfPost(data.createdAt);
-      } else {
-        setErrorMsg(String(data));
-      }
+      const { data } = await getInterviewReview(interviewReviewId!);
+      setJobTitle(data.jobTitle);
+      setCompanyName(data.atCompany);
+      setExperience(data.experience);
+      setQuestionsAsked(data.questionsAsked);
+      setRating(data.rating);
+      setOfferReceived(data.offerReceived);
+      setDateOfPost(data.createdAt);
       setIsLoading(false);
     } catch (err: any) {
-      setErrorMsg("A network error occurred. Please try again.");
+      setErrorMsg(
+        err.response
+          ? err.response.data.error
+          : "A network error occurred. Please try again."
+      );
       setIsLoading(false);
     }
   };

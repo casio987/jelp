@@ -39,7 +39,7 @@ const RateInterviewPage = () => {
       }
     } else {
       try {
-        const { status, data } = await postInterviewReview(
+        await postInterviewReview(
           companyName,
           role,
           experience,
@@ -47,19 +47,18 @@ const RateInterviewPage = () => {
           rating,
           hasOffer === "Yes" ? true : false
         );
-        if (status === 200) {
-          setAlertType("success");
-          setAlertMsg("Interview review successfully created. Redirecting you back to the home page.");
-          setTimeout(() => {
-            navigate('/home');
-          }, 5000)
-        } else {
-          setAlertType("error");
-          setAlertMsg(data as string);
-        }
+        setAlertType("success");
+        setAlertMsg("Interview review successfully created. Redirecting you back to the home page.");
+        setTimeout(() => {
+          navigate('/home');
+        }, 5000)
       } catch (err: any) {
         setAlertType("error");
-        setAlertMsg("A network error occurred.");
+        setAlertMsg(
+          err.response
+            ? err.response.data.error
+            : "A network error occurred. Please try again."
+        );
       }
     }
   }
