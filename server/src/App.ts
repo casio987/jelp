@@ -7,6 +7,7 @@ import { getLogger } from "./components/Logger";
 import { UserRouter } from './routers/user.router';
 import { IRouter } from './interfaces/IRouter';
 import { InterviewRouter } from './routers/interview.router';
+import { CompanyRouter } from './routers/company.router';
 
 
 export class App {
@@ -24,10 +25,12 @@ export class App {
 
     const userRouter = new UserRouter(this.manager);
     const interviewRouter = new InterviewRouter(this.manager);
+    const companyRouter = new CompanyRouter(this.manager);
     
     this.setUpRouters([
       userRouter,
-      interviewRouter
+      interviewRouter,
+      companyRouter
     ]);
   }
 
