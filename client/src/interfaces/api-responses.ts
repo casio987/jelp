@@ -32,7 +32,13 @@ export interface IInterviewReviewData {
 export interface ICompanyResponse {
   status: number;
   data: ICompanyReviewData;
-}
+};
+
+export interface ICompaniesResponse {
+  status: number;
+  data: ICompanyReviewData[];
+};
+
 export interface ICompanyReviewData {
   id: number;
   jobTitle: string;
@@ -41,4 +47,4 @@ export interface ICompanyReviewData {
   rating: number;
   isCurrentEmployee: boolean;
   createdAt: string;
-}
+};
