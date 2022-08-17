@@ -112,5 +112,3 @@ export class CompanyRouter implements IRouter {
 
   public getRouter = () => this.router;
 }
-
-// TODO: company review ordered by date?

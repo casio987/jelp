@@ -120,5 +120,3 @@ export class InterviewService {
   }
 
 }
-
-// TODO: for get reviews - order by date?

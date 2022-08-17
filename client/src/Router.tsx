@@ -6,6 +6,7 @@ import InterviewListPage from "./pages/InterviewListPage/InterviewListPage";
 import InterviewReviewPage from "./pages/InterviewReviewPage/InterviewReviewPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RateCompanyPage from "./pages/RateCompanyPage/RateCompanyPage";
 import RateInterviewPage from "./pages/RateInterviewPage/RateInterviewPage";
@@ -33,7 +34,7 @@ const Router = () => (
         <Route path='/view/interview/list' element={ <InterviewListPage /> } />
         <Route path='/view/company/:companyReviewId' element={ <CompanyReviewPage /> } />
         <Route path='/view/interview/:interviewReviewId' element={ <InterviewReviewPage /> } />
-        <Route path="*" element={ <div>page not found</div> } />
+        <Route path="*" element={ <PageNotFound /> } />
       </Routes>
     </BrowserRouter>
 );
