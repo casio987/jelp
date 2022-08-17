@@ -27,8 +27,10 @@ export class InterviewRouter implements IRouter {
       )
       .post(
         '/interview',
-        authenticationMiddleware,
-        validationMiddleware(PostInterviewReviewSchema),
+        [
+          validationMiddleware(PostInterviewReviewSchema),
+          authenticationMiddleware
+        ],
         this.postInterviewReview
       )
       .get(

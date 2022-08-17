@@ -38,7 +38,7 @@ const InterviewReviewPage = () => {
     } catch (err: any) {
       setErrorMsg(
         err.response
-          ? err.response.data.error
+          ? err.response.data
           : "A network error occurred. Please try again."
       );
       setIsLoading(false);

@@ -56,7 +56,7 @@ const RateInterviewPage = () => {
         setAlertType("error");
         setAlertMsg(
           err.response
-            ? err.response.data.error
+            ? err.response.data
             : "A network error occurred. Please try again."
         );
       }

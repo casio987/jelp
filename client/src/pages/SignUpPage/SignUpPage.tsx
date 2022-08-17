@@ -28,7 +28,7 @@ const SignUpPage = () => {
     } catch (err: any) {
       setError(
         err.response
-          ? err.response.data.error
+          ? err.response.data
           : "A network error occurred. Please try again."
       );
     }
