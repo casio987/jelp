@@ -7,6 +7,11 @@ export const ReviewPreviewCardContainer = styled('div')`
   border-radius: 1rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${Palette.jelpLightGray};
+  }
 `;
 
 export const TopContainer = styled('div')`

@@ -94,6 +94,7 @@ const InterviewReviewPage = () => {
               <OtherContainer>
                 {/* TODO: replace placeholders with db data */}
                 <ReviewPreviewCard
+                  reviewId={1}
                   width="45%"
                   title="Frontend Engineer"
                   dateOfPost="20th March, 2020"
@@ -104,6 +105,7 @@ const InterviewReviewPage = () => {
                   rating={5}
                 />
                 <ReviewPreviewCard
+                  reviewId={1}
                   width="45%"
                   title="Frontend Engineer"
                   dateOfPost="20th March, 2020"
