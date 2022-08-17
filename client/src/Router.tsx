@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CompanyListPage from "./pages/CompanyListPage/CompanyListPage";
 import CompanyReviewPage from "./pages/CompanyReviewPage/CompanyReviewPage";
 import HomePage from "./pages/HomePage/HomePage";
 import InterviewListPage from "./pages/InterviewListPage/InterviewListPage";
@@ -28,10 +29,11 @@ const Router = () => (
         <Route path='/rate/company' element={ <RateCompanyPage /> } />
         <Route path='/rate/interview' element={ <RateInterviewPage /> } />
         <Route path='/profile' element={ <ProfilePage /> } />
-        <Route path='/view/company/list' element={ <div>view list of company reviews</div> } />
+        <Route path='/view/company/list' element={ <CompanyListPage /> } />
         <Route path='/view/interview/list' element={ <InterviewListPage /> } />
         <Route path='/view/company/:companyReviewId' element={ <CompanyReviewPage /> } />
         <Route path='/view/interview/:interviewReviewId' element={ <InterviewReviewPage /> } />
+        <Route path="*" element={ <div>page not found</div> } />
       </Routes>
     </BrowserRouter>
 );
