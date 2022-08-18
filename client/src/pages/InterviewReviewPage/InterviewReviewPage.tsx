@@ -36,11 +36,7 @@ const InterviewReviewPage = () => {
       setDateOfPost(data.createdAt);
       setIsLoading(false);
     } catch (err: any) {
-      setErrorMsg(
-        err.response
-          ? err.response.data
-          : "A network error occurred. Please try again."
-      );
+      setErrorMsg(err.response.data || "A network error occurred. Please try again.")
       setIsLoading(false);
     }
   };

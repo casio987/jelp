@@ -21,11 +21,7 @@ const LoginPage = () => {
       sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
       navigate('/home');
     } catch (err: any) {
-      setError(
-        err.response
-          ? err.response.data
-          : "A network error occurred. Please try again."
-      );
+      setError(err.response.data || "A network error occurred. Please try again.")
     }
   }
 

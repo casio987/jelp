@@ -54,11 +54,7 @@ const RateInterviewPage = () => {
         }, 5000)
       } catch (err: any) {
         setAlertType("error");
-        setAlertMsg(
-          err.response
-            ? err.response.data
-            : "A network error occurred. Please try again."
-        );
+        setAlertMsg(err.response.data || "A network error occurred. Please try again.")
       }
     }
   }
