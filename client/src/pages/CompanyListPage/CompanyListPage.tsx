@@ -26,7 +26,6 @@ const CompanyListPage = () => {
       <GridContainer>
       <ReviewPreviewCard
         reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"
@@ -36,7 +35,6 @@ const CompanyListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"
@@ -46,7 +44,6 @@ const CompanyListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"
@@ -56,7 +53,6 @@ const CompanyListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"
@@ -66,7 +62,6 @@ const CompanyListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"
@@ -76,7 +71,6 @@ const CompanyListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           atCompany="Canva"

@@ -4,7 +4,6 @@ import { HeadingContainer, ReviewPreviewCardContainer, Tag, TextContainter, TopC
 
 type ReviewPreviewCardProps = {
   reviewId: number;
-  width?: string;
   title: string;
   dateOfPost: string;
   atCompany: string;
@@ -17,7 +16,6 @@ type ReviewPreviewCardProps = {
 
 const ReviewPreviewCard = ({
   reviewId,
-  width,
   title,
   dateOfPost,
   atCompany,
@@ -31,7 +29,6 @@ const ReviewPreviewCard = ({
 
   return (
     <ReviewPreviewCardContainer
-      style={width ? { width: width } : undefined}
       onClick={() => navigate(`/view/${questionsAsked ? "interview" : "company"}/${reviewId}`)}
     >
         <TopContainer>

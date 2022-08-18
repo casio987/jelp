@@ -5,6 +5,7 @@ export const ReviewPreviewCardContainer = styled('div')`
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
+  width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 1rem;
   cursor: pointer;
@@ -45,17 +46,19 @@ export const Tag = styled('div')`
 `;
 
 export const TextContainter = styled('div')`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 100%;
 
   > h4 {
     margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
   }
 
   > p {
     margin-top: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
   }
 `;
-
-// TODO: media queries

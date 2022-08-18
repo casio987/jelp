@@ -25,8 +25,7 @@ const InterviewListPage = () => {
       </TopContainer>
       <GridContainer>
       <ReviewPreviewCard
-        reviewId={1}
-          width="100%"
+          reviewId={1}
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"
@@ -37,7 +36,6 @@ const InterviewListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"
@@ -48,7 +46,6 @@ const InterviewListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"
@@ -59,7 +56,6 @@ const InterviewListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"
@@ -70,7 +66,6 @@ const InterviewListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"
@@ -81,7 +76,6 @@ const InterviewListPage = () => {
         />
         <ReviewPreviewCard
           reviewId={1}
-          width="100%"
           title="Frontend Engineer"
           dateOfPost="20th March, 2020"
           questionsAsked="If i was a 200 YOE"

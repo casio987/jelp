@@ -27,7 +27,7 @@ export const CompanyName = styled('p')`
   color: ${Palette.jelpGray};
 `;
 
-export const DescriptionText =styled('p')`
+export const DescriptionText = styled('p')`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
