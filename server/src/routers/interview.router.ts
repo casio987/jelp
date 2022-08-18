@@ -43,6 +43,11 @@ export class InterviewRouter implements IRouter {
         authenticationMiddleware,
         this.getInterviewReviews
       )
+      .get(
+        '/interview/similar',
+        authenticationMiddleware,
+        this.getSimilarReviews
+      )
   }
 
   private getSingleInterviewReview = async (
@@ -109,6 +114,20 @@ export class InterviewRouter implements IRouter {
     try {
       const interviewReviews = await this.interviewService.getInterviewReviews(parseInt(offset));
       res.status(200).json(interviewReviews);
+    } catch (err: any) {
+      return res.status(err.status).json(err.message);
+    }
+  };
+
+  private getSimilarReviews = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { company } = req.body;
+      const similarReviews = await this.interviewService.getSimilarInterviewReviews(company);
+      res.status(200).json(similarReviews);
     } catch (err: any) {
       return res.status(err.status).json(err.message);
     }

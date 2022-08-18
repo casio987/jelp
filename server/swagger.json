@@ -236,6 +236,19 @@
           }
         }
       },
+      "SimilarReviewBody": {
+        "name": "Body for getting similar reviews",
+        "description": "Body for getting similar reviews",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "company": {
+              "$ref": "#/components/fields/CompanyName"
+            }
+          }
+        }
+      },
       "PaginationOffsetQuery": {
         "name": "Offset",
         "in": "path",
@@ -520,6 +533,22 @@
         }
       }
     },
+    "/interview/similar": {
+      "get": {
+        "summary": "Gets a list of similar interview reviews",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/SimilarReviewBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/InterviewReviews" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
     "/interview": {
       "post": {
         "summary": "Creates a new interview review",
@@ -613,6 +642,23 @@
           "401": { "$ref": "#/components/responses/401" }
         }
       }
-    }
+    },
+    "/company/similar": {
+      "get": {
+        "summary": "Gets a list of similar company reviews",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" },
+          { "$ref": "#/components/parameters/SimilarReviewBody" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/CompanyReviews" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      }
+    },
+
   }
 }

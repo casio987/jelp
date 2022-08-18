@@ -119,4 +119,26 @@ export class InterviewService {
     }
   }
 
+  // TODO: decide if should send error when empty or simply send
+  // an error
+  public getSimilarInterviewReviews = async (company: string) => {
+    try {
+      const similarReviews = await this.manager
+        .createQueryBuilder(InterviewReviewEntity, "interviewReview")
+        .take(2)
+        .where("interviewReview.atCompany = :atCompany", { atCompany: company })
+        .getMany();
+
+      if (!similarReviews) {
+        this.logger.info(`Could not find any similar interview reviews.`);
+        throw new HTTPError(404, "The requested resource was not found.");
+      } else {
+        this.logger.info(`Similar interview reviews found.`);
+        return similarReviews;
+      }
+    } catch (err: any) {
+      throw err;
+    }
+  }
+
 }
