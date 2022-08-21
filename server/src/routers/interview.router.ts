@@ -21,7 +21,7 @@ export class InterviewRouter implements IRouter {
   private initialiseRoutes = () => {
     this.router
       .get(
-        '/self/interview/:offset',
+        '/self/interview',
         authenticationMiddleware,
         this.getSelfInterviewReviews
       )
@@ -39,7 +39,7 @@ export class InterviewRouter implements IRouter {
         this.getSingleInterviewReview
       )
       .get(
-        '/interview/:offset',
+        '/interview',
         authenticationMiddleware,
         this.getInterviewReviews
       )
@@ -70,12 +70,8 @@ export class InterviewRouter implements IRouter {
     next: NextFunction,
   ) => {
     const userId = req.userId;
-    const { offset } = req.params;
     try {
-      const interviewReviews = await this.interviewService.getSelfInterviewReviews(
-        parseInt(offset),
-        userId
-      );
+      const interviewReviews = await this.interviewService.getSelfInterviewReviews(userId);
       res.status(200).json(interviewReviews);
     } catch (err: any) {
       return res.status(err.status).json(err.message);
@@ -110,9 +106,8 @@ export class InterviewRouter implements IRouter {
     res: Response,
     next: NextFunction,
   ) => {
-    const { offset } = req.params;
     try {
-      const interviewReviews = await this.interviewService.getInterviewReviews(parseInt(offset));
+      const interviewReviews = await this.interviewService.getInterviewReviews();
       res.status(200).json(interviewReviews);
     } catch (err: any) {
       return res.status(err.status).json(err.message);

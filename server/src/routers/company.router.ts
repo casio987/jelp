@@ -21,7 +21,7 @@ export class CompanyRouter implements IRouter {
   private initialiseRoutes = () => {
     this.router
       .get(
-        '/self/company/:offset',
+        '/self/company',
         authenticationMiddleware,
         this.getSelfCompanyReviews
       )
@@ -39,7 +39,7 @@ export class CompanyRouter implements IRouter {
         this.getSingleCompanyReview
       )
       .get(
-        '/company/:offset',
+        '/company',
         authenticationMiddleware,
         this.getCompanyReviews
       )
@@ -70,9 +70,8 @@ export class CompanyRouter implements IRouter {
     next: NextFunction,
   ) => {
     const userId = req.userId;
-    const { offset } = req.params;
     try {
-      const companyReviews = await this.companyService.getSelfCompanyReviews(parseInt(offset), userId);
+      const companyReviews = await this.companyService.getSelfCompanyReviews(userId);
       res.status(200).json(companyReviews);
     } catch (err: any) {
       return res.status(err.status).json(err.message);
@@ -106,9 +105,8 @@ export class CompanyRouter implements IRouter {
     res: Response,
     next: NextFunction,
   ) => {
-    const { offset } = req.params;
     try {
-      const companyReviews = await this.companyService.getCompanyReviews(parseInt(offset));
+      const companyReviews = await this.companyService.getCompanyReviews();
       res.status(200).json(companyReviews);
     } catch (err: any) {
       res.status(err.message).json(err.status);

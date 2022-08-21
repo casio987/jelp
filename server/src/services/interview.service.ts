@@ -4,8 +4,6 @@ import { getLogger } from "../components/Logger";
 import { InterviewReviewEntity } from "../entities/interviewReview";
 import { UserEntity } from "../entities/user";
 
-const PAGINATION_LIMIT = 10;
-
 export class InterviewService {
   private manager: EntityManager;
   private logger = getLogger();
@@ -71,7 +69,7 @@ export class InterviewService {
     }
   }
 
-  public getSelfInterviewReviews = async (offset: number, userId: string) => {
+  public getSelfInterviewReviews = async (userId: string) => {
     try {
       const interviewReviews = await this.manager
         .createQueryBuilder(InterviewReviewEntity, "interviewReview")
@@ -83,8 +81,6 @@ export class InterviewService {
           "interviewReview.rating"
         ])
         .where("interviewReview.user = :userId", { userId: userId })
-        .take(PAGINATION_LIMIT)
-        .skip(offset)
         .getMany()
 
       if (!interviewReviews) {
@@ -99,12 +95,10 @@ export class InterviewService {
     }
   }
 
-  public getInterviewReviews = async (offset: number) => {
+  public getInterviewReviews = async () => {
     try {
       const interviewReviews = await this.manager
         .createQueryBuilder(InterviewReviewEntity, "interviewReview")
-        .take(PAGINATION_LIMIT)
-        .skip(offset)
         .getMany()
 
       if (!interviewReviews) {

@@ -248,17 +248,6 @@
             }
           }
         }
-      },
-      "PaginationOffsetQuery": {
-        "name": "Offset",
-        "in": "path",
-        "required": true,
-        "schema": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 1
-        },
-        "example": 20
       }
     },
     "responses": {
@@ -472,14 +461,13 @@
         }
       }
     },
-    "/self/interview/{offset}": {
+    "/self/interview": {
       "get": {
         "summary": "Gets a list of all interview reviews user has made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Interview Review Management" ],
         "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/PaginationOffsetQuery" }          
+          { "$ref": "#/components/parameters/Authorization" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/InterviewReviews" },
@@ -517,22 +505,6 @@
         }
       }
     },
-    "/interview/{offset}": {
-      "get": {
-        "summary": "Gets a list of interview reviews that have been made",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "Interview Review Management" ],
-        "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/InterviewReviews" },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      }
-    },
     "/interview/similar": {
       "get": {
         "summary": "Gets a list of similar interview reviews",
@@ -563,17 +535,28 @@
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
+      },
+      "get": {
+        "summary": "Gets a list of interview reviews that have been made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Interview Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/InterviewReviews" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
       }
-
     },
-    "/self/company/${offset}": {
+    "/self/company": {
       "get": {
         "summary": "Gets a list of all company reviews user has made",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Company Review Management" ],
         "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
+          { "$ref": "#/components/parameters/Authorization" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/CompanyReviews" },
@@ -592,6 +575,19 @@
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/Empty" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" }
+        }
+      },
+      "get": {
+        "summary": "Gets a list of company reviews that have been made",
+        "security": [{ "bearerAuth": [] }],
+        "tags": [ "Company Review Management" ],
+        "parameters": [
+          { "$ref": "#/components/parameters/Authorization" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/200/CompanyReviews" },
           "400": { "$ref": "#/components/responses/400" },
           "401": { "$ref": "#/components/responses/401" }
         }
@@ -627,22 +623,6 @@
         }
       }
     },
-    "/company/{offset}": {
-      "get": {
-        "summary": "Gets a list of company reviews that have been made",
-        "security": [{ "bearerAuth": [] }],
-        "tags": [ "Company Review Management" ],
-        "parameters": [
-          { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/PaginationOffsetQuery" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/200/CompanyReviews" },
-          "400": { "$ref": "#/components/responses/400" },
-          "401": { "$ref": "#/components/responses/401" }
-        }
-      }
-    },
     "/company/similar": {
       "get": {
         "summary": "Gets a list of similar company reviews",
@@ -658,7 +638,6 @@
           "401": { "$ref": "#/components/responses/401" }
         }
       }
-    },
-
+    }
   }
 }
