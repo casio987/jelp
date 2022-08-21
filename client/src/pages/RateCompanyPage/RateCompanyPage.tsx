@@ -5,10 +5,15 @@ import Header from "../../components/Header/Header";
 import { ContinueAndSubmitButton, InputField, RateCompanyPageContainer, TopContainer, BodyPageContainer } from "./style";
 import { Palette } from '../../components/Palette';
 import Switch from '../../components/Switch/Switch';
+import { postCompanyReview } from '../../api/company';
+import { useNavigate } from 'react-router-dom';
+import ErrorPopup from '../../components/Popup/Popup';
 
 type IPageState = "input" | "confirm";
 
 const RateCompanyPage = () => {
+  const navigate = useNavigate();
+  
   const [pageState, setPageState] = useState<IPageState>("input");
   const [companyName, setCompanyName] = useState<string>("");
   const [experience, setExperience] = useState<string>("");
@@ -16,18 +21,48 @@ const RateCompanyPage = () => {
   const [rating, setRating] = useState<number>(0);
   const [employeeStatus, setEmployeeStatus] = useState<string>("Current");
 
-  const handleContinueAndSubmitClick = () => {
+  const [alertMsg, setAlertMsg] = useState<string>("");
+  const [alertType, setAlertType] = useState<"success" | "error">("error");
+
+  const handleContinueAndSubmitClick = async () => {
     if (pageState === "input") {
-      console.log(companyName, role, rating, experience, employeeStatus);
-      setPageState("confirm");
+      if (
+        companyName === "" || role === "" || experience === "") {
+        setAlertType("error");
+        setAlertMsg("All fields must be filled.");
+      } else {
+        setPageState("confirm");
+        setAlertMsg("");
+      }
     } else {
-      // TODO: make api call to post
-      console.log(companyName, role, rating, experience, employeeStatus);
+      try {
+        await postCompanyReview(
+          companyName,
+          role,
+          experience,
+          rating,
+          employeeStatus === "Current" ? true : false
+        );
+        setAlertType("success");
+        setAlertMsg("Company review successfully created. Redirecting you back to the home page.");
+        setTimeout(() => {
+          navigate('/home');
+        }, 5000)
+      } catch (err: any) {
+        setAlertType("error");
+        setAlertMsg(err.response.data || "A network error occurred. Please try again.")
+      }
     }
   }
   
   return (
     <RateCompanyPageContainer>
+      <ErrorPopup
+        isOpen={alertMsg !== ""}
+        popupMessage={alertMsg}
+        handleClose={() => setAlertMsg("")}
+        type={alertType}
+      />
       <Header />
       <BodyPageContainer style={ pageState === "confirm" ? { alignItems: "flex-start", padding: "0 5rem" }: undefined }>
         <TopContainer>
