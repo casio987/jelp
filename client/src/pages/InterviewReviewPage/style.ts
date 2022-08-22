@@ -22,6 +22,10 @@ export const MainBodyContainer = styled('div')`
   @media (max-width: 700px) {
     padding: 0 2rem;
   }
+
+  > :nth-child(5) {
+    margin-bottom: 2rem;
+  }
 `;
 
 export const TopContainer = styled('div')`

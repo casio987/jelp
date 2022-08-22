@@ -9,42 +9,68 @@ import { Palette } from "../../components/Palette";
 import { useEffect, useState } from "react";
 import ErrorPopup from "../../components/Popup/Popup";
 import LoadingOverlay from "../../components/LoadingOverlay/LoadingOverlay";
-import { getCompanyReview } from "../../api/company";
+import { getCompanyReview, getSimilarCompanyReviews } from "../../api/company";
+import { ICompanyReviewData } from "../../interfaces/api-responses";
 
 const CompanyReviewPage = () => {
   const { companyReviewId } = useParams();
-
+  
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [jobTitle, setJobTitle] = useState<string>("Job Title");
-  const [companyName, setCompanyName] = useState<string>("Company name");
-  const [experience, setExperience] = useState<string>("Company experience...");
-  const [rating, setRating] = useState<number>(0);
-  const [isCurrentEmployee, setIsCurrentEmployee] = useState<boolean>(false);
-  const [dateOfPost, setDateOfPost] = useState<string>("");
 
-  const loadInterviewReview = async () => {
+  const [companyReview, setCompanyReview] = useState<ICompanyReviewData>({
+    // placeholder
+    id: 0,
+    jobTitle: "Job Title",
+    atCompany: "Company name",
+    experience: "Company experience...",
+    rating: 0,
+    isCurrentEmployee: false,
+    createdAt: ""
+  });
+
+  const [similarReviews, setSimilarReviews] = useState<ICompanyReviewData[]>([]);
+
+  const loadCompanyReview = async () => {
     try {
       const { status, data } = await getCompanyReview(companyReviewId!);
       if (status === 200) {
-        setJobTitle(data.jobTitle);
-        setCompanyName(data.atCompany);
-        setExperience(data.experience);
-        setRating(data.rating);
-        setIsCurrentEmployee(data.isCurrentEmployee);
-        setDateOfPost(data.createdAt);
+        setCompanyReview(data);
       } else {
         setErrorMsg(String(data));
       }
-      setIsLoading(false);
     } catch (err: any) {
-      setErrorMsg("A network error occurred. Please try again.");
-      setIsLoading(false);
+      setErrorMsg(err.response.data || "A network error occurred. Please try again.");
     }
   };
 
+  const loadSimilarReviews = async () => {
+    try {
+      const { data } = await getSimilarCompanyReviews(companyReview.atCompany);
+      setSimilarReviews(data);
+    } catch (err: any) {
+      // todo: just throw err?
+      throw err;
+    }
+  };
+
+  const renderSimilarReviews = similarReviews.map((review) => (
+    <ReviewPreviewCard
+      key={review.id}
+      reviewId={review.id}
+      title={review.jobTitle}
+      atCompany={review.atCompany}
+      dateOfPost={review.createdAt}
+      experience={review.experience}
+      isCurrentEmployee={review.isCurrentEmployee ? "Yes" : "No"}
+      rating={review.rating}
+    />
+  ));
+
   useEffect(() => {
-    loadInterviewReview();
+    loadCompanyReview();
+    loadSimilarReviews();
+    setIsLoading(false);
     // eslint-disable-next-line
   }, [])
 
@@ -66,12 +92,12 @@ const CompanyReviewPage = () => {
                 {/* TODO: current placeholder till i figure out how to store images in db */}
                 <img src={CompanyIcon} alt="companyLogo" />
                 <TopCenterContainer>
-                  <h1>{`${jobTitle} (${companyName})`}</h1>
-                  <p>{dateOfPost}</p>
-                  <Rating value={rating} readOnly />
+                  <h1>{`${companyReview.jobTitle} (${companyReview.atCompany})`}</h1>
+                  <p>{companyReview.createdAt}</p>
+                  <Rating value={companyReview.rating} readOnly />
                 </TopCenterContainer>
                 <Tag
-                  backgroundcolor={isCurrentEmployee ? Palette.jelpGreen : Palette.jelpRed}
+                  backgroundcolor={companyReview.isCurrentEmployee ? Palette.jelpGreen : Palette.jelpRed}
                 >
                   Current employee
                 </Tag>
@@ -79,31 +105,19 @@ const CompanyReviewPage = () => {
               <h2>Company experience</h2>
               <BodyContainer>
                 <p>
-                  {experience}
+                  {companyReview.experience}
                 </p>
               </BodyContainer>
-              <h2>Other company reviews for this company</h2>
-              <OtherContainer>
-                {/* TODO: replace placeholders with db data */}
-                <ReviewPreviewCard
-                  reviewId={1}
-                  title="Frontend Engineer"
-                  dateOfPost="20th March, 2020"
-                  atCompany="Canva"
-                  experience="Was great 10/10"
-                  isCurrentEmployee="Yes"
-                  rating={5}
-                />
-                <ReviewPreviewCard
-                  reviewId={1}
-                  title="Frontend Engineer"
-                  dateOfPost="20th March, 2020"
-                  atCompany="Canva"
-                  experience="Was great 10/10"
-                  isCurrentEmployee="Yes"
-                  rating={5}
-                />
-              </OtherContainer>
+              {similarReviews.length !== 0
+                ? (
+                  <>
+                    <h2>Other company reviews for this company</h2>
+                    <OtherContainer>
+                      {renderSimilarReviews}
+                    </OtherContainer>
+                  </>
+                ) : null
+              }
             </MainBodyContainer>
             <Footer/>
           </>

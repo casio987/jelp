@@ -98,7 +98,7 @@ export const BodyContainer = styled('div')`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 100%;
   padding: 1rem 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   height: 20rem;
   overflow-y: auto;  
 `;

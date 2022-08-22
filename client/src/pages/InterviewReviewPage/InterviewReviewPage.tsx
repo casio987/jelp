@@ -7,42 +7,75 @@ import ReviewPreviewCard from "../../components/ReviewPreviewCard/ReviewPreviewC
 import { useParams } from "react-router-dom";
 import { Palette } from "../../components/Palette";
 import { useEffect, useState } from "react";
-import { getInterviewReview } from "../../api/interview";
+import { getInterviewReview, getSimilarInterviewReviews } from "../../api/interview";
 import ErrorPopup from "../../components/Popup/Popup";
 import LoadingOverlay from "../../components/LoadingOverlay/LoadingOverlay";
+import { IInterviewReviewData } from "../../interfaces/api-responses";
 
 const InterviewReviewPage = () => {
   const { interviewReviewId } = useParams();
 
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [jobTitle, setJobTitle] = useState<string>("Job Title");
-  const [companyName, setCompanyName] = useState<string>("Company name");
-  const [experience, setExperience] = useState<string>("Interview experience...");
-  const [questionsAsked, setQuestionsAsked] = useState<string>("Questions asked...");
-  const [rating, setRating] = useState<number>(0);
-  const [offerReceived, setOfferReceived] = useState<boolean>(false);
-  const [dateOfPost, setDateOfPost] = useState<string>("");
+
+  const [interviewReview, setInterviewReview] = useState<IInterviewReviewData>({
+    // placeholder
+    id: 0,
+    jobTitle: "Job Title",
+    atCompany: "Company name",
+    experience: "Interview experience...",
+    questionsAsked: "Questions asked...",
+    rating: 0,
+    offerReceived: false,
+    createdAt: ""
+  });
+
+  // const [jobTitle, setJobTitle] = useState<string>("Job Title");
+  // const [companyName, setCompanyName] = useState<string>("Company name");
+  // const [experience, setExperience] = useState<string>("Interview experience...");
+  // const [questionsAsked, setQuestionsAsked] = useState<string>("Questions asked...");
+  // const [rating, setRating] = useState<number>(0);
+  // const [offerReceived, setOfferReceived] = useState<boolean>(false);
+  // const [dateOfPost, setDateOfPost] = useState<string>("");
+
+  const [similarReviews, setSimilarReviews] = useState<IInterviewReviewData[]>([]);
 
   const loadInterviewReview = async () => {
     try {
       const { data } = await getInterviewReview(interviewReviewId!);
-      setJobTitle(data.jobTitle);
-      setCompanyName(data.atCompany);
-      setExperience(data.experience);
-      setQuestionsAsked(data.questionsAsked);
-      setRating(data.rating);
-      setOfferReceived(data.offerReceived);
-      setDateOfPost(data.createdAt);
-      setIsLoading(false);
+      setInterviewReview(data);
     } catch (err: any) {
       setErrorMsg(err.response.data || "A network error occurred. Please try again.")
-      setIsLoading(false);
     }
   };
 
+  const loadSimilarReviews = async () => {
+    try {
+      const { data } = await getSimilarInterviewReviews(interviewReview.atCompany);
+      setSimilarReviews(data);
+    } catch (err: any) {
+      throw err;
+    }
+  };
+
+  const renderSimilarReviews = similarReviews.map((review) => (
+    <ReviewPreviewCard
+      key={review.id}
+      reviewId={review.id}
+      title={review.jobTitle}
+      dateOfPost={review.createdAt}
+      atCompany={review.atCompany}
+      experience={review.experience}
+      questionsAsked={review.questionsAsked}
+      offerReceived={review.offerReceived ? "Yes" : "No"}
+      rating={review.rating}
+    />
+  ));
+
   useEffect(() => {
     loadInterviewReview();
+    loadSimilarReviews();
+    setIsLoading(false);
     // eslint-disable-next-line
   }, [])
 
@@ -64,12 +97,12 @@ const InterviewReviewPage = () => {
                 {/* TODO: current placeholder till i figure out how to store images in db */}
                 <img src={InterviewIcon} alt="companyLogo" />
                 <TopCenterContainer>
-                  <h1>{`${jobTitle} (${companyName})`}</h1>
-                  <p>{dateOfPost}</p>
-                  <Rating value={rating} readOnly />
+                  <h1>{`${interviewReview.jobTitle} (${interviewReview.atCompany})`}</h1>
+                  <p>{interviewReview.createdAt}</p>
+                  <Rating value={interviewReview.rating} readOnly />
                 </TopCenterContainer>
                 <Tag
-                  backgroundcolor={offerReceived ? Palette.jelpGreen : Palette.jelpRed}
+                  backgroundcolor={interviewReview.offerReceived ? Palette.jelpGreen : Palette.jelpRed}
                 >
                   Offer received
                 </Tag>
@@ -77,39 +110,25 @@ const InterviewReviewPage = () => {
               <h2>Application/Interview Experience</h2>
               <BodyContainer>
                 <p>
-                  {experience}
+                  {interviewReview.experience}
                 </p>
               </BodyContainer>
               <h2>Interview Questions</h2>
               <BodyContainer>
                 <p>
-                  {questionsAsked}
+                  {interviewReview.questionsAsked}
                 </p>
               </BodyContainer>
-              <h2>Other interview reviews for this company</h2>
-              <OtherContainer>
-                {/* TODO: replace placeholders with db data */}
-                <ReviewPreviewCard
-                  reviewId={1}
-                  title="Frontend Engineer"
-                  dateOfPost="20th March, 2020"
-                  atCompany="Canva"
-                  experience="Was great 10/10"
-                  questionsAsked="Asked about experience and reversing a linked list"
-                  offerReceived="Yes"
-                  rating={5}
-                />
-                <ReviewPreviewCard
-                  reviewId={1}
-                  title="Frontend Engineer"
-                  dateOfPost="20th March, 2020"
-                  atCompany="Canva"
-                  experience="Was great 10/10"
-                  questionsAsked="Asked about experience and reversing a linked list"
-                  offerReceived="Yes"
-                  rating={5}
-                />
-              </OtherContainer>
+              {similarReviews.length !== 0
+                ? (
+                  <>
+                    <h2>Other interview reviews for this company</h2>
+                    <OtherContainer>
+                      {renderSimilarReviews}
+                    </OtherContainer>
+                  </>
+                ) : null
+              }
             </MainBodyContainer>
             <Footer/>
           </>
