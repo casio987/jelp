@@ -1,3 +1,4 @@
+import { Pagination } from "@mui/material";
 import { styled } from "@mui/system";
 import { Palette } from "../../components/Palette";
 
@@ -43,4 +44,15 @@ export const OptionButton = styled('button')`
     background-color: ${Palette.jelpLightGray};
     color: ${Palette.jelpRed}
   }
+`;
+
+export const EmptyContainer = styled('div')`
+  margin: auto 0;
+  align-items: center;
+  text-align: center;
+  color: ${Palette.jelpEmptyGray};
+`;
+
+export const StyledPagination = styled(Pagination)`
+  margin: auto 0 1rem 0;
 `;

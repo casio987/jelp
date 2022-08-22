@@ -113,8 +113,6 @@ export class InterviewService {
     }
   }
 
-  // TODO: decide if should send error when empty or simply send
-  // an error
   public getSimilarInterviewReviews = async (company: string) => {
     try {
       const similarReviews = await this.manager

@@ -4,12 +4,11 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { Palette } from "../../components/Palette";
 import ProfilePageCard from "./ProfilePageCard/ProfilePageCard";
-import { OptionButton, ProfilePageContainer, SwitchContainer } from "./style";
+import { EmptyContainer, OptionButton, ProfilePageContainer, StyledPagination, SwitchContainer } from "./style";
 import { IInterviewReviewData, ICompanyReviewData } from "../../interfaces/api-responses";
 import { getSelfCompanyReviews } from "../../api/company";
 import ErrorPopup from "../../components/Popup/Popup";
 import LoadingOverlay from "../../components/LoadingOverlay/LoadingOverlay";
-import { Pagination } from "@mui/material";
 
 const ProfilePage = () => {
   const [pageState, setPageState] = useState<"interview" | "company">("interview");
@@ -23,8 +22,10 @@ const ProfilePage = () => {
   const renderInterviewReviews = () => {
     if (interviewReviews.length === 0) {
       return (
-        // todo: update empty page
-        <div>empty interview reviews</div>
+        <EmptyContainer>
+          <h1>jelp</h1>
+          <p>You have yet to post an interview review</p>
+        </EmptyContainer>
       );
     } else {
       return (
@@ -46,8 +47,10 @@ const ProfilePage = () => {
   const renderCompanyReviews = () => {
     if (companyReviews.length === 0) {
       return (
-        // todo: update empty page
-        <div>empty company reviews</div>
+        <EmptyContainer>
+          <h1>jelp</h1>
+          <p>You have yet to post a company review</p>
+        </EmptyContainer>        
       );
     } else {
       return (
@@ -68,7 +71,7 @@ const ProfilePage = () => {
 
   const fetchInterviewReviews = async () => {
     try {
-      const { data } = await getSelfInterviewReviews(interviewReviews.length);
+      const { data } = await getSelfInterviewReviews();
       setInterviewReviews([...interviewReviews, ...data]);
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.");
@@ -77,7 +80,7 @@ const ProfilePage = () => {
 
   const fetchCompanyReviews = async () => {
     try {
-      const { data } = await getSelfCompanyReviews(companyReviews.length);
+      const { data } = await getSelfCompanyReviews();
       setCompanyReviews([...companyReviews, ...data]);
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.");
@@ -123,15 +126,16 @@ const ProfilePage = () => {
               ? (
                 <>
                   {renderInterviewReviews()}
+                  <StyledPagination count={3} sx={interviewReviews.length === 0 ? { display: "none" } : undefined} />
                 </>
               )
               : (
                 <>
                   {renderCompanyReviews()}
+                  <StyledPagination count={1} sx={companyReviews.length === 0 ? { display: "none" } : undefined} />
                 </>
               )
             }
-            <Pagination count={0} sx={{ marginTop: 'auto', marginBottom: '1rem' }} />
             <Footer />
           </>
         )

@@ -43,9 +43,9 @@ export const getInterviewReview = async (interviewReviewId: string): Promise<IIn
   }
 };
 
-export const getSelfInterviewReviews = async (offset: number): Promise<IInterviewsResponse> => {
+export const getSelfInterviewReviews = async (): Promise<IInterviewsResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/self/interview/${offset}`, {
+    const { status, data } = await axios.get(`${API_URL}/api/self/interview`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -56,9 +56,9 @@ export const getSelfInterviewReviews = async (offset: number): Promise<IIntervie
   }
 };
 
-export const getInterviewReviews = async (offset: number): Promise<IInterviewsResponse> => {
+export const getInterviewReviews = async (): Promise<IInterviewsResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/interview/${offset}`, {
+    const { status, data } = await axios.get(`${API_URL}/api/interview`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }

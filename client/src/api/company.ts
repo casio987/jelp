@@ -41,9 +41,9 @@ export const postCompanyReview = async (
   }
 };
 
-export const getSelfCompanyReviews = async (offset: number): Promise<ICompaniesResponse> => {
+export const getSelfCompanyReviews = async (): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/self/company/${offset}`, {
+    const { status, data } = await axios.get(`${API_URL}/api/self/company`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -54,9 +54,9 @@ export const getSelfCompanyReviews = async (offset: number): Promise<ICompaniesR
   }
 };
 
-export const getCompanyReviews = async (offset: number): Promise<ICompaniesResponse> => {
+export const getCompanyReviews = async (): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/company/${offset}`, {
+    const { status, data } = await axios.get(`${API_URL}/api/company`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }

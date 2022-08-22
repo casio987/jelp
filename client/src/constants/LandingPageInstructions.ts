@@ -20,12 +20,12 @@ export const LandingPageInstructions = [
     imageUrl: RateInterviewIcon,
     instructionNo: 3,
     headingText: "Add a review of your interview experience at a company",
-    subText: "Write about your experience whilst interviewing at a company. You can talk about the questions you were asked, how many interview there were or anything else that you’re comfortab le sharing."
+    subText: "Write about your experience whilst interviewing at a company. You can talk about the questions you were asked, how many interview there were or anything else that you’re comfortable sharing."
   },
   {
     imageUrl: ViewReviewsIcon,
     instructionNo: 4,
     headingText: "Look at what other have said about a company",
-    subText: "Write about your experience whilst interviewing at a company. You can talk about the questions you were asked, how many interview there were or anything else that you’re comfortab le sharing."
+    subText: "Write about your experience whilst interviewing at a company. You can talk about the questions you were asked, how many interview there were or anything else that you’re comfortable sharing."
   }
 ]
