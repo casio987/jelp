@@ -1,5 +1,6 @@
 import { FormControl } from "@mui/material";
 import { styled } from "@mui/system";
+import { Palette } from "../../components/Palette";
 
 export const InterviewListPageContainer = styled('div')`
   display: flex;
@@ -43,4 +44,11 @@ export const GridContainer = styled('div')`
   @media(max-width: 700px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+`;
+
+export const EmptyContainer = styled('div')`
+  margin: auto 0;
+  align-items: center;
+  text-align: center;
+  color: ${Palette.jelpEmptyGray};
 `;

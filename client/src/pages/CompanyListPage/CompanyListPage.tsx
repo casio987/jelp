@@ -1,86 +1,92 @@
-import { InputLabel, MenuItem, Pagination, Select } from "@mui/material";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import { useEffect, useState } from "react";
+import { getCompanyReviews } from "../../api/company";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import ReviewPreviewCard from "../../components/ReviewPreviewCard/ReviewPreviewCard";
-import { CompanyListPageContainer, TopContainer, FormContainer, GridContainer } from "./style";
+import { ICompanyReviewData } from "../../interfaces/api-responses";
+import { CompanyListPageContainer, TopContainer, FormContainer, GridContainer, EmptyContainer } from "./style";
+import ErrorPopup from "../../components/Popup/Popup";
+import LoadingOverlay from "../../components/LoadingOverlay/LoadingOverlay";
 
 const CompanyListPage = () => {
+  const [companyReviews, setCompanyReviews] = useState<ICompanyReviewData[]>([]);
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const fetchCompanyReviews = async () => {
+    try {
+      const { data } = await getCompanyReviews();
+      setCompanyReviews(data);
+    } catch (err: any) {
+      setError(err.response.data || "A network error occurred. Please try again.")
+    }
+  };
+
+  const renderCompanyReviews = companyReviews.map((companyReview) => (
+    <ReviewPreviewCard
+      key={companyReview.id}
+      reviewId={companyReview.id}
+      title={companyReview.jobTitle}
+      atCompany={companyReview.atCompany}
+      dateOfPost={companyReview.createdAt}
+      experience={companyReview.experience}
+      isCurrentEmployee={companyReview.isCurrentEmployee ? "Yes" : "No"}
+      rating={companyReview.rating}
+    />
+  ));
+
+  useEffect(() => {
+    fetchCompanyReviews();
+    setIsLoading(false);
+  }, [])
+
   return (
     <CompanyListPageContainer>
-      <Header />
-      <TopContainer>
-        <h2>35 Reviews</h2>
-        <FormContainer>
-          <InputLabel>Sort by</InputLabel>
-          <Select
-            // value={age}
-            // onChange={handleChange}
-          >
-            <MenuItem value={"mostRecent"}>Most recent</MenuItem>
-            <MenuItem value={"oldestFirst"}>Oldest first</MenuItem>
-            <MenuItem value={"jobTitle"}>Job title</MenuItem>
-            <MenuItem value={"company"}>Company</MenuItem>
-          </Select>
-        </FormContainer>
-      </TopContainer>
-      <GridContainer>
-      <ReviewPreviewCard
-        reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-        <ReviewPreviewCard
-          reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-        <ReviewPreviewCard
-          reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-        <ReviewPreviewCard
-          reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-        <ReviewPreviewCard
-          reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-        <ReviewPreviewCard
-          reviewId={1}
-          title="Frontend Engineer"
-          dateOfPost="20th March, 2020"
-          atCompany="Canva"
-          experience="Was great 10/10"
-          isCurrentEmployee="Yes"
-          rating={5}
-        />
-      </GridContainer>
-      <Pagination count={10} sx={{ alignSelf: "center", marginBottom: "3rem" }} />
-      <Footer />
+      <ErrorPopup
+        isOpen={error !== ""}
+        popupMessage={error}
+        type="error"
+        handleClose={() => setError("")}
+      />
+      {isLoading
+        ? (
+          <LoadingOverlay isOpen={isLoading} />
+        ) : (
+          <>
+            <Header />
+            <TopContainer>
+              <h2>{`${companyReviews.length} Reviews`}</h2>
+              <FormContainer>
+                <InputLabel>Sort by</InputLabel>
+                <Select
+                  // value={age}
+                  // onChange={handleChange}
+                >
+                  <MenuItem value={"mostRecent"}>Most recent</MenuItem>
+                  <MenuItem value={"oldestFirst"}>Oldest first</MenuItem>
+                  <MenuItem value={"jobTitle"}>Job title</MenuItem>
+                  <MenuItem value={"company"}>Company</MenuItem>
+                </Select>
+              </FormContainer>
+            </TopContainer>
+            {companyReviews.length === 0
+              ? (
+                <EmptyContainer>
+                  <h1>jelp</h1>
+                  <p>There currently exists no company reviews</p>
+                </EmptyContainer>
+              ) : (
+                <GridContainer>
+                  {renderCompanyReviews}
+                </GridContainer>
+              )
+            }
+            {/* <Pagination count={10} sx={{ alignSelf: "center", marginBottom: "3rem" }} /> */}
+            <Footer />
+          </>
+        )
+      }
     </CompanyListPageContainer>
   );
 };

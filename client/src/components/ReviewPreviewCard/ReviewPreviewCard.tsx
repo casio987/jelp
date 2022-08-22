@@ -1,5 +1,4 @@
 import { Rating } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { HeadingContainer, ReviewPreviewCardContainer, Tag, TextContainter, TopContainer } from "./style";
 
 type ReviewPreviewCardProps = {
@@ -25,11 +24,13 @@ const ReviewPreviewCard = ({
   isCurrentEmployee,
   rating
 }: ReviewPreviewCardProps) => {
-  const navigate = useNavigate();
-
   return (
     <ReviewPreviewCardContainer
-      onClick={() => navigate(`/view/${questionsAsked ? "interview" : "company"}/${reviewId}`)}
+      onClick={() => window.open(
+        `${window.location.origin}/view/${questionsAsked ? "interview" : "company"}/${reviewId}`,
+        '_blank',
+        'noopener,noreferrer'
+      )}
     >
         <TopContainer>
           <HeadingContainer>
