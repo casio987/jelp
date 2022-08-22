@@ -44,7 +44,7 @@ export class InterviewRouter implements IRouter {
         this.getInterviewReviews
       )
       .get(
-        '/interview/similar',
+        '/interview/similar/:companyName',
         authenticationMiddleware,
         this.getSimilarReviews
       )
@@ -120,8 +120,8 @@ export class InterviewRouter implements IRouter {
     next: NextFunction,
   ) => {
     try {
-      const { company } = req.body;
-      const similarReviews = await this.interviewService.getSimilarInterviewReviews(company);
+      const { companyName } = req.params;
+      const similarReviews = await this.interviewService.getSimilarInterviewReviews(companyName);
       res.status(200).json(similarReviews);
     } catch (err: any) {
       return res.status(err.status).json(err.message);

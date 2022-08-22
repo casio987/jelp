@@ -68,3 +68,16 @@ export const getInterviewReviews = async (): Promise<IInterviewsResponse> => {
     throw err;
   }
 };
+
+export const getSimilarInterviewReviews = async (companyName: string): Promise<IInterviewsResponse> => {
+  try {
+    const { status, data } = await axios.get(`${API_URL}/api/interview/similar/${companyName}`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
+      }
+    });
+    return { status, data };
+  } catch (err: any) {
+    throw err;
+  }
+};

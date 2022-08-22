@@ -236,18 +236,15 @@
           }
         }
       },
-      "SimilarReviewBody": {
-        "name": "Body for getting similar reviews",
-        "description": "Body for getting similar reviews",
-        "in": "body",
+      "SimilarCompanyNameQuery": {
+        "name": "Company name",
+        "description": "Name of a company",
+        "in": "path",
+        "required": true,
         "schema": {
-          "type": "object",
-          "properties": {
-            "company": {
-              "$ref": "#/components/fields/CompanyName"
-            }
-          }
-        }
+          "type": "string"
+        },
+        "example": "Canva"
       }
     },
     "responses": {
@@ -505,14 +502,14 @@
         }
       }
     },
-    "/interview/similar": {
+    "/interview/similar/${companyName}": {
       "get": {
         "summary": "Gets a list of similar interview reviews",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Interview Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/SimilarReviewBody" }
+          { "$ref": "#/components/parameters/SimilarCompanyNameQuery" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/InterviewReviews" },
@@ -623,14 +620,14 @@
         }
       }
     },
-    "/company/similar": {
+    "/company/similar/{companyName}": {
       "get": {
         "summary": "Gets a list of similar company reviews",
         "security": [{ "bearerAuth": [] }],
         "tags": [ "Company Review Management" ],
         "parameters": [
           { "$ref": "#/components/parameters/Authorization" },
-          { "$ref": "#/components/parameters/SimilarReviewBody" }
+          { "$ref": "#/components/parameters/SimilarCompanyNameQuery" }
         ],
         "responses": {
           "200": { "$ref": "#/components/responses/200/CompanyReviews" },

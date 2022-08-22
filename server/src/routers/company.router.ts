@@ -44,7 +44,7 @@ export class CompanyRouter implements IRouter {
         this.getCompanyReviews
       )
       .get(
-        '/company/similar',
+        '/company/similar/:companyName',
         authenticationMiddleware,
         this.getSimilarReviews
       )
@@ -118,9 +118,9 @@ export class CompanyRouter implements IRouter {
     res: Response,
     next: NextFunction
   ) => {
-    const { company } = req.body;
+    const { companyName } = req.params;
     try {
-      const similarReviews = await this.companyService.getSimilarCompanyReviews(company);
+      const similarReviews = await this.companyService.getSimilarCompanyReviews(companyName);
       res.status(200).json(similarReviews);
     } catch (err: any) {
       res.status(err.message).json(err.status);
