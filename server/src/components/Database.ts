@@ -5,6 +5,7 @@ import "dotenv/config";
 import { UserEntity } from "../entities/user";
 import { CompanyReviewEntity } from "../entities/companyReview";
 import { InterviewReviewEntity } from "../entities/interviewReview";
+import { seed } from "../utils/seed";
 export class Database {
   private dbConnection: DataSource;
   private logger: Logger;
@@ -37,6 +38,7 @@ export class Database {
   public start = async () => {
     await this.dbConnection.initialize();
     this.logger.info('started connection to db');
+    await seed(this.dbConnection.manager);
   }
 
   public stop = async () => {

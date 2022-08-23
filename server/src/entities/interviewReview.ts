@@ -6,9 +6,8 @@ export class InterviewReviewEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @ManyToOne(() => UserEntity, user => user.id)
-  @JoinColumn()
-  user: UserEntity;
+  @ManyToOne(() => UserEntity, user => user.interviewExperiences)
+  public user: UserEntity;
 
   @Column()
   public jobTitle: string;

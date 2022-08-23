@@ -6,9 +6,8 @@ export class CompanyReviewEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @ManyToOne(() => UserEntity, user => user.id)
-  @JoinColumn()
-  user: UserEntity;
+  @ManyToOne(() => UserEntity, user => user.companyExperiences)
+  public user: UserEntity;
 
   @Column()
   public jobTitle: string;

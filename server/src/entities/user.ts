@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from "typeorm";
 import { CompanyReviewEntity } from "./companyReview";
 import { InterviewReviewEntity } from "./interviewReview";
 
@@ -13,9 +13,17 @@ export class UserEntity {
   @Column()
   public password: string;
 
-  @OneToMany(() => InterviewReviewEntity, interviewReview => interviewReview.user)
-  interviewExperiences: InterviewReviewEntity[];
+  @OneToMany(() => InterviewReviewEntity, interviewReview => interviewReview.user, {
+    cascade: true,
+    onDelete: "CASCADE"
+  })
+  @JoinColumn()
+  public interviewExperiences: InterviewReviewEntity[];
 
-  @OneToMany(() => CompanyReviewEntity, companyReview => companyReview.user)
-  companyExperiences: CompanyReviewEntity[];
+  @OneToMany(() => CompanyReviewEntity, companyReview => companyReview.user, {
+    cascade: true,
+    onDelete: "CASCADE"
+  })
+  @JoinColumn()
+  public companyExperiences: CompanyReviewEntity[];
 }
