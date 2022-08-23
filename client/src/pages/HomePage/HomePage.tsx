@@ -27,12 +27,12 @@ const HomePage = () => {
       <HomePageCard 
         text="Take a look at what others have said about a company"
         imageURL={ViewReviewsIcon}
-        handleClick={() => navigate('/view/company')}
+        handleClick={() => navigate('/view/company/list')}
       />
       <HomePageCard 
         text="Need a run down of how your interview might go?"
         imageURL={InterviewIcon}
-        handleClick={() => navigate('/view/interview')}
+        handleClick={() => navigate('/view/interview/list')}
       />
       <Footer />
     </HomePageContainer>

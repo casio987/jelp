@@ -29,7 +29,6 @@ const ReviewPreviewCard = ({
       onClick={() => window.open(
         `${window.location.origin}/view/${questionsAsked ? "interview" : "company"}/${reviewId}`,
         '_blank',
-        'noopener,noreferrer'
       )}
     >
         <TopContainer>

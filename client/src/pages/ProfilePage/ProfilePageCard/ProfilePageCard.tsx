@@ -1,5 +1,4 @@
 import { Rating } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { CompanyName, DescriptionText, ProfilePageCardContainer } from "./style";
 
 type ProfilePageCardProps = {
@@ -19,11 +18,12 @@ const ProfilePageCard = ({
   rating,
   description
 }: ProfilePageCardProps) => {
-  const navigate = useNavigate();
-
   return (
     <ProfilePageCardContainer
-      onClick={() => navigate(`/view/${reviewType}/${reviewId}`)}
+      onClick={() => window.open(
+        `${window.location.origin}/view/${reviewType}/${reviewId}`,
+        '_blank',
+      )}
     >
       <h3>{jobTitle}</h3>
       <CompanyName>@{companyName}</CompanyName>
