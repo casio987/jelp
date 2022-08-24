@@ -95,6 +95,15 @@ export const seed = async (manager: EntityManager) => {
   billInterviewReview6.rating = 0;
   billInterviewReview6.offerReceived = false;
 
+  const billInterviewReview7 = new InterviewReviewEntity();
+  billInterviewReview7.user = bill;
+  billInterviewReview7.jobTitle = "Site Reliability Engineer";
+  billInterviewReview7.atCompany = "Google";
+  billInterviewReview7.experience = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in fringilla urna. Mauris elementum vel massa eget vulputate. Aliquam fermentum."
+  billInterviewReview7.questionsAsked = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in fringilla urna. Mauris elementum vel massa eget vulputate. Aliquam fermentum."
+  billInterviewReview7.rating = 5;
+  billInterviewReview7.offerReceived = false;
+
   const billCompanyReview1 = new CompanyReviewEntity();
   billCompanyReview1.user = bill
   billCompanyReview1.jobTitle = "Devops Intern";
@@ -143,6 +152,14 @@ export const seed = async (manager: EntityManager) => {
   billCompanyReview6.rating = 1;
   billCompanyReview6.isCurrentEmployee = false;
 
+  const billCompanyReview7 = new CompanyReviewEntity();
+  billCompanyReview7.user = bill
+  billCompanyReview7.jobTitle = "Site Reliability Engineer";
+  billCompanyReview7.atCompany = "Google";
+  billCompanyReview7.experience = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in fringilla urna. Mauris elementum vel massa eget vulputate. Aliquam fermentum."
+  billCompanyReview7.rating = 5;
+  billCompanyReview7.isCurrentEmployee = false;
+
   bill.interviewExperiences = [
     billInterviewReview1,
     billInterviewReview2,
@@ -159,6 +176,7 @@ export const seed = async (manager: EntityManager) => {
     billCompanyReview4,
     billCompanyReview5,
     billCompanyReview6,
+    billCompanyReview7
   ];
 
   await manager.save(bill);

@@ -33,23 +33,22 @@ const CompanyReviewPage = () => {
 
   const loadCompanyReview = async () => {
     try {
-      const { status, data } = await getCompanyReview(companyReviewId!);
-      if (status === 200) {
-        setCompanyReview(data);
-      } else {
-        setErrorMsg(String(data));
-      }
+      const { data } = await getCompanyReview(companyReviewId!);
+      setCompanyReview(data);
+      await loadSimilarReviews(data.atCompany);
     } catch (err: any) {
+      setIsLoading(false);
       setErrorMsg(err.response.data || "A network error occurred. Please try again.");
     }
   };
 
-  const loadSimilarReviews = async () => {
+  const loadSimilarReviews = async (companyName: string) => {
     try {
-      const { data } = await getSimilarCompanyReviews(companyReview.atCompany);
+      const { data } = await getSimilarCompanyReviews(companyName);
       setSimilarReviews(data);
+      setIsLoading(false);
     } catch (err: any) {
-      // todo: just throw err?
+      setIsLoading(false);
       throw err;
     }
   };
@@ -69,8 +68,6 @@ const CompanyReviewPage = () => {
 
   useEffect(() => {
     loadCompanyReview();
-    loadSimilarReviews();
-    setIsLoading(false);
     // eslint-disable-next-line
   }, [])
 

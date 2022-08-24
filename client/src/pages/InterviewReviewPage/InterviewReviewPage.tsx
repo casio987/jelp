@@ -36,16 +36,20 @@ const InterviewReviewPage = () => {
     try {
       const { data } = await getInterviewReview(interviewReviewId!);
       setInterviewReview(data);
+      await loadSimilarReviews(data.atCompany);
     } catch (err: any) {
+      setIsLoading(false);
       setErrorMsg(err.response.data || "A network error occurred. Please try again.")
     }
   };
 
-  const loadSimilarReviews = async () => {
+  const loadSimilarReviews = async (companyName: string) => {
     try {
-      const { data } = await getSimilarInterviewReviews(interviewReview.atCompany);
+      const { data } = await getSimilarInterviewReviews(companyName);
       setSimilarReviews(data);
+      setIsLoading(false);
     } catch (err: any) {
+      setIsLoading(false);
       throw err;
     }
   };
@@ -66,8 +70,6 @@ const InterviewReviewPage = () => {
 
   useEffect(() => {
     loadInterviewReview();
-    loadSimilarReviews();
-    setIsLoading(false);
     // eslint-disable-next-line
   }, [])
 
