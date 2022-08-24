@@ -97,6 +97,7 @@ export class CompanyService {
     try {
       const companyReviews = await this.manager
         .createQueryBuilder(CompanyReviewEntity, "companyReview")
+        .orderBy("companyReview.createdAt", "DESC")
         .getMany()
 
       if (!companyReviews) {

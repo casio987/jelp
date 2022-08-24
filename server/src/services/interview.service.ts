@@ -99,6 +99,7 @@ export class InterviewService {
     try {
       const interviewReviews = await this.manager
         .createQueryBuilder(InterviewReviewEntity, "interviewReview")
+        .orderBy("interviewReview.createdAt", "DESC")
         .getMany()
 
       if (!interviewReviews) {

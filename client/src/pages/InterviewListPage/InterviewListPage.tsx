@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import { InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getInterviewReviews } from "../../api/interview";
 import Footer from "../../components/Footer/Footer";
@@ -13,6 +13,35 @@ const InterviewListPage = () => {
   const [interviewReviews, setInterviewReviews] = useState<IInterviewReviewData[]>([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [sortType, setSortType] = useState<string>("mostRecent");
+
+  useEffect(() => {
+    let sortedList: IInterviewReviewData[] = [];
+    if (sortType === "mostRecent") {
+      sortedList = [...interviewReviews].sort(
+        (reviewA, reviewB) => new Date(reviewB.createdAt).valueOf() - new Date(reviewA.createdAt).valueOf()
+      );
+    } else if (sortType === "oldestFirst") { 
+      sortedList = [...interviewReviews].sort(
+        (reviewA, reviewB) => new Date(reviewA.createdAt).valueOf() - new Date(reviewB.createdAt).valueOf()
+      );
+    } else if (sortType === "jobTitle") {
+      sortedList = [...interviewReviews].sort(
+        (reviewA, reviewB) => reviewA.jobTitle.localeCompare(reviewB.jobTitle)
+      );
+    } else if (sortType === "company") {
+      sortedList = [...interviewReviews].sort(
+        (reviewA, reviewB) => reviewA.atCompany.localeCompare(reviewB.atCompany)
+      );
+    } else if (sortType === "rating") {
+      sortedList = [...interviewReviews].sort(
+        (reviewA, reviewB) => reviewB.rating - reviewA.rating
+      );
+    }
+    setInterviewReviews(sortedList);
+    // eslint-disable-next-line
+  }, [sortType]);
 
   const fetchInterviewReviews = async () => {
     try {
@@ -62,13 +91,15 @@ const InterviewListPage = () => {
               <FormContainer>
                 <InputLabel>Sort by</InputLabel>
                 <Select
-                  // value={age}
-                  // onChange={handleChange}
+                  defaultValue=""
+                  value={sortType}
+                  onChange={(e: SelectChangeEvent) => setSortType(e.target.value)}
                 >
                   <MenuItem value={"mostRecent"}>Most recent</MenuItem>
                   <MenuItem value={"oldestFirst"}>Oldest first</MenuItem>
                   <MenuItem value={"jobTitle"}>Job title</MenuItem>
                   <MenuItem value={"company"}>Company</MenuItem>
+                  <MenuItem value={"rating"}>Rating</MenuItem>
                 </Select>
               </FormContainer>
             </TopContainer>
