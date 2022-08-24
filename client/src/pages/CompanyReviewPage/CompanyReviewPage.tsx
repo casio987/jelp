@@ -35,16 +35,16 @@ const CompanyReviewPage = () => {
     try {
       const { data } = await getCompanyReview(companyReviewId!);
       setCompanyReview(data);
-      await loadSimilarReviews(data.atCompany);
+      await loadSimilarReviews(data.atCompany, String(data.id));
     } catch (err: any) {
       setIsLoading(false);
       setErrorMsg(err.response.data || "A network error occurred. Please try again.");
     }
   };
 
-  const loadSimilarReviews = async (companyName: string) => {
+  const loadSimilarReviews = async (companyName: string, companyReviewId: string) => {
     try {
-      const { data } = await getSimilarCompanyReviews(companyName);
+      const { data } = await getSimilarCompanyReviews(companyName, companyReviewId);
       setSimilarReviews(data);
       setIsLoading(false);
     } catch (err: any) {

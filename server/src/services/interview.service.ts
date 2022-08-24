@@ -113,12 +113,13 @@ export class InterviewService {
     }
   }
 
-  public getSimilarInterviewReviews = async (company: string) => {
+  public getSimilarInterviewReviews = async (company: string, interviewReviewId: string) => {
     try {
       const similarReviews = await this.manager
         .createQueryBuilder(InterviewReviewEntity, "interviewReview")
         .take(2)
         .where("interviewReview.atCompany = :atCompany", { atCompany: company })
+        .andWhere("interviewReview.id != :id", { id: interviewReviewId })
         .getMany();
 
       if (!similarReviews) {

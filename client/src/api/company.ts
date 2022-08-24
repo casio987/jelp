@@ -67,9 +67,9 @@ export const getCompanyReviews = async (): Promise<ICompaniesResponse> => {
   }
 };
 
-export const getSimilarCompanyReviews = async (companyName: string): Promise<ICompaniesResponse> => {
+export const getSimilarCompanyReviews = async (companyName: string, companyReviewId: string): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/company/similar/${companyName}`, {
+    const { status, data } = await axios.get(`${API_URL}/api/company/similar/${companyName}/${companyReviewId}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }

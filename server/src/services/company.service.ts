@@ -111,12 +111,13 @@ export class CompanyService {
     }
   }
 
-  public getSimilarCompanyReviews = async (company: string) => {
+  public getSimilarCompanyReviews = async (company: string, companyReviewId: string) => {
     try {
       const similarReviews = await this.manager
         .createQueryBuilder(CompanyReviewEntity, "companyReview")
         .take(2)
         .where("companyReview.atCompany = :atCompany", { atCompany: company })
+        .andWhere("companyReview.id != :id", { id: companyReviewId })
         .getMany();
 
       if (!similarReviews) {

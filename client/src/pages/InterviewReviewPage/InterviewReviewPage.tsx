@@ -36,16 +36,16 @@ const InterviewReviewPage = () => {
     try {
       const { data } = await getInterviewReview(interviewReviewId!);
       setInterviewReview(data);
-      await loadSimilarReviews(data.atCompany);
+      await loadSimilarReviews(data.atCompany, String(data.id));
     } catch (err: any) {
       setIsLoading(false);
       setErrorMsg(err.response.data || "A network error occurred. Please try again.")
     }
   };
 
-  const loadSimilarReviews = async (companyName: string) => {
+  const loadSimilarReviews = async (companyName: string, interviewReviewId: string) => {
     try {
-      const { data } = await getSimilarInterviewReviews(companyName);
+      const { data } = await getSimilarInterviewReviews(companyName, interviewReviewId);
       setSimilarReviews(data);
       setIsLoading(false);
     } catch (err: any) {
