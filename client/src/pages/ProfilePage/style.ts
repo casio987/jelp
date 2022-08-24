@@ -1,4 +1,3 @@
-import { Pagination } from "@mui/material";
 import { styled } from "@mui/system";
 import { Palette } from "../../components/Palette";
 
@@ -51,8 +50,4 @@ export const EmptyContainer = styled('div')`
   align-items: center;
   text-align: center;
   color: ${Palette.jelpEmptyGray};
-`;
-
-export const StyledPagination = styled(Pagination)`
-  margin: auto 0 1rem 0;
 `;

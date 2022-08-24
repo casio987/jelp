@@ -82,7 +82,6 @@ const CompanyListPage = () => {
                 </GridContainer>
               )
             }
-            {/* <Pagination count={10} sx={{ alignSelf: "center", marginBottom: "3rem" }} /> */}
             <Footer />
           </>
         )

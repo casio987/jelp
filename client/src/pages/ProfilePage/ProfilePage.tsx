@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { Palette } from "../../components/Palette";
 import ProfilePageCard from "./ProfilePageCard/ProfilePageCard";
-import { EmptyContainer, OptionButton, ProfilePageContainer, StyledPagination, SwitchContainer } from "./style";
+import { EmptyContainer, OptionButton, ProfilePageContainer, SwitchContainer } from "./style";
 import { IInterviewReviewData, ICompanyReviewData } from "../../interfaces/api-responses";
 import { getSelfCompanyReviews } from "../../api/company";
 import ErrorPopup from "../../components/Popup/Popup";
@@ -126,13 +126,11 @@ const ProfilePage = () => {
               ? (
                 <>
                   {renderInterviewReviews()}
-                  <StyledPagination count={3} sx={interviewReviews.length === 0 ? { display: "none" } : undefined} />
                 </>
               )
               : (
                 <>
                   {renderCompanyReviews()}
-                  <StyledPagination count={1} sx={companyReviews.length === 0 ? { display: "none" } : undefined} />
                 </>
               )
             }
