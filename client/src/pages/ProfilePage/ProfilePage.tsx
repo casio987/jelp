@@ -73,8 +73,10 @@ const ProfilePage = () => {
     try {
       const { data } = await getSelfInterviewReviews();
       setInterviewReviews([...interviewReviews, ...data]);
+      await fetchCompanyReviews();
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.");
+      setIsLoading(false);
     }
   };
 
@@ -82,15 +84,15 @@ const ProfilePage = () => {
     try {
       const { data } = await getSelfCompanyReviews();
       setCompanyReviews([...companyReviews, ...data]);
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.");
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchInterviewReviews();
-    fetchCompanyReviews();
-    setIsLoading(false);
     // eslint-disable-next-line
   }, []);
 

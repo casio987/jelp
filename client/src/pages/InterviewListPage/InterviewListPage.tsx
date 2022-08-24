@@ -18,14 +18,15 @@ const InterviewListPage = () => {
     try {
       const { data } = await getInterviewReviews();
       setInterviewReviews(data);
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.");
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchInterviewReviews();
-    setIsLoading(false);
   }, []);
 
   const renderInterviewReviews = interviewReviews.map((interviewReview) => (

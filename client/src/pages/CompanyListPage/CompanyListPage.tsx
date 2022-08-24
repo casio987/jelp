@@ -18,8 +18,10 @@ const CompanyListPage = () => {
     try {
       const { data } = await getCompanyReviews();
       setCompanyReviews(data);
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.response.data || "A network error occurred. Please try again.")
+      setIsLoading(false);
     }
   };
 
@@ -38,7 +40,6 @@ const CompanyListPage = () => {
 
   useEffect(() => {
     fetchCompanyReviews();
-    setIsLoading(false);
   }, [])
 
   return (
