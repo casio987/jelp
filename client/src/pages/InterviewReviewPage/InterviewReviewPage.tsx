@@ -30,14 +30,6 @@ const InterviewReviewPage = () => {
     createdAt: ""
   });
 
-  // const [jobTitle, setJobTitle] = useState<string>("Job Title");
-  // const [companyName, setCompanyName] = useState<string>("Company name");
-  // const [experience, setExperience] = useState<string>("Interview experience...");
-  // const [questionsAsked, setQuestionsAsked] = useState<string>("Questions asked...");
-  // const [rating, setRating] = useState<number>(0);
-  // const [offerReceived, setOfferReceived] = useState<boolean>(false);
-  // const [dateOfPost, setDateOfPost] = useState<string>("");
-
   const [similarReviews, setSimilarReviews] = useState<IInterviewReviewData[]>([]);
 
   const loadInterviewReview = async () => {
@@ -98,7 +90,7 @@ const InterviewReviewPage = () => {
                 <img src={InterviewIcon} alt="companyLogo" />
                 <TopCenterContainer>
                   <h1>{`${interviewReview.jobTitle} (${interviewReview.atCompany})`}</h1>
-                  <p>{interviewReview.createdAt}</p>
+                  <p>{new Date(interviewReview.createdAt).toLocaleString().split(',')[0]}</p>
                   <Rating value={interviewReview.rating} readOnly />
                 </TopCenterContainer>
                 <Tag

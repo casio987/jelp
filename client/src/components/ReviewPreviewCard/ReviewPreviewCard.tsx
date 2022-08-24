@@ -34,7 +34,7 @@ const ReviewPreviewCard = ({
         <TopContainer>
           <HeadingContainer>
             <h3>{title}</h3>
-            <p>{dateOfPost}</p>
+            <p>{new Date(dateOfPost).toLocaleString().split(',')[0]}</p>
           </HeadingContainer>
           <Tag>
             {atCompany}

@@ -93,7 +93,7 @@ const CompanyReviewPage = () => {
                 <img src={CompanyIcon} alt="companyLogo" />
                 <TopCenterContainer>
                   <h1>{`${companyReview.jobTitle} (${companyReview.atCompany})`}</h1>
-                  <p>{companyReview.createdAt}</p>
+                  <p>{new Date(companyReview.createdAt).toLocaleString().split(',')[0]}</p>
                   <Rating value={companyReview.rating} readOnly />
                 </TopCenterContainer>
                 <Tag
