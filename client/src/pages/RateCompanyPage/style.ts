@@ -21,10 +21,6 @@ export const BodyPageContainer = styled('div')`
     align-self: center;
   }
 
-  > button {
-    align-self: center;
-  }
-
   > p {
     margin: 0 0 2rem 0;
   }
@@ -56,13 +52,20 @@ export const InputField = styled(TextField)`
   margin-bottom: 1rem;
 `;
 
-export const ContinueAndSubmitButton = styled('button')`
+export const ButtonContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-top: auto;
+`;
+
+export const StyledButton = styled('button')`
   border-radius: 1rem;
   border: none;
   background-color: ${Palette.jelpRed};
   color: white;
   padding: 1rem 2.5rem;
   font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   cursor: pointer;
 `;

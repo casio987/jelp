@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { RateInterviewPageContainer, TopContainer, InputField, ContinueAndSubmitButton, BodyPageContainer } from "./style";
+import { RateInterviewPageContainer, TopContainer, InputField, StyledButton, BodyPageContainer, ButtonContainer } from "./style";
 import { Rating } from "@mui/material";
 import { Palette } from "../../components/Palette";
 import Switch from "../../components/Switch/Switch";
@@ -10,8 +10,6 @@ import { useNavigate } from "react-router-dom";
 import ErrorPopup from "../../components/Popup/Popup";
 
 type IPageState = "input" | "confirm";
-
-// TODO: allow user to go back to input page state
 
 const RateInterviewPage = () => {
   const navigate = useNavigate();
@@ -86,7 +84,7 @@ const RateInterviewPage = () => {
         {pageState === "input"
           ?
             (
-              <InputField error={alertMsg !== ""} label="Company name" onChange={(e) => setCompanyName(e.target.value)}  />
+              <InputField error={alertMsg !== ""} value={companyName} label="Company name" onChange={(e) => setCompanyName(e.target.value)}  />
             )
             : (
               <p>{companyName}</p>
@@ -96,7 +94,7 @@ const RateInterviewPage = () => {
         {pageState === "input"
           ?
             (
-              <InputField error={alertMsg !== ""} label="Job title" onChange={(e) => setRole(e.target.value)}  />
+              <InputField error={alertMsg !== ""} value={role} label="Job title" onChange={(e) => setRole(e.target.value)}  />
             )
             : (
               <p>{role}</p>
@@ -110,6 +108,7 @@ const RateInterviewPage = () => {
               <InputField
                 error={alertMsg !== ""}
                 label="Your experience"
+                value={experience}
                 multiline
                 placeholder='
                 Feel free to note down anything you&apos;re comfortable sharing.
@@ -130,6 +129,7 @@ const RateInterviewPage = () => {
             (
               <InputField
                 error={alertMsg !== ""}
+                value={questionsAsked}
                 label="Interview questions"
                 multiline
                 rows={8}
@@ -160,9 +160,18 @@ const RateInterviewPage = () => {
               <p>{hasOffer}</p>
             )
         }
-        <ContinueAndSubmitButton onClick={handleContinueAndSubmitClick}>
-          {pageState === "input" ? "Continue" : "Submit"}
-        </ContinueAndSubmitButton>
+        <ButtonContainer>
+          <StyledButton onClick={handleContinueAndSubmitClick}>
+            {pageState === "input" ? "Continue" : "Submit"}
+          </StyledButton>
+          {pageState === "confirm" 
+            ? (
+              <StyledButton onClick={() => setPageState("input")} style={{ backgroundColor: Palette.jelpGray }}>
+                Back
+              </StyledButton>
+            ) : null
+          }
+        </ButtonContainer>
       </BodyPageContainer>
       <Footer />
     </RateInterviewPageContainer>

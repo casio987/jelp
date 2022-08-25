@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Rating } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { ContinueAndSubmitButton, InputField, RateCompanyPageContainer, TopContainer, BodyPageContainer } from "./style";
+import { StyledButton, InputField, RateCompanyPageContainer, TopContainer, BodyPageContainer, ButtonContainer } from "./style";
 import { Palette } from '../../components/Palette';
 import Switch from '../../components/Switch/Switch';
 import { postCompanyReview } from '../../api/company';
@@ -53,7 +53,7 @@ const RateCompanyPage = () => {
         setAlertMsg(err.response.data || "A network error occurred. Please try again.")
       }
     }
-  }
+  };
   
   return (
     <RateCompanyPageContainer>
@@ -82,7 +82,7 @@ const RateCompanyPage = () => {
         {pageState === "input"
           ?
             (
-              <InputField label="Company name" onChange={(e) => setCompanyName(e.target.value)}  />
+              <InputField label="Company name" value={companyName} onChange={(e) => setCompanyName(e.target.value)}  />
             )
             : (
               <p>{companyName}</p>
@@ -92,7 +92,7 @@ const RateCompanyPage = () => {
         {pageState === "input"
           ?
             (
-              <InputField label="Role" onChange={(e) => setRole(e.target.value)}  />
+              <InputField label="Role" value={role} onChange={(e) => setRole(e.target.value)}  />
             )
             : (
               <p>{role}</p>
@@ -104,6 +104,7 @@ const RateCompanyPage = () => {
             (
               <InputField
                 label="Your experience"
+                value={experience}
                 multiline
                 placeholder='
                 Feel free to note down anything you&apos;re comfortable sharing.
@@ -135,9 +136,18 @@ const RateCompanyPage = () => {
               <p>{employeeStatus}</p>
             )
         }
-        <ContinueAndSubmitButton onClick={handleContinueAndSubmitClick}>
-          {pageState === "input" ? "Continue" : "Submit" }
-        </ContinueAndSubmitButton>
+        <ButtonContainer>
+          <StyledButton onClick={handleContinueAndSubmitClick}>
+            {pageState === "input" ? "Continue" : "Submit" }
+          </StyledButton>
+          {pageState === "confirm"
+            ? (
+              <StyledButton onClick={() => setPageState("input")} style={{ backgroundColor: Palette.jelpGray }}>
+                Back
+              </StyledButton>
+            ) : null
+          }
+        </ButtonContainer>
       </BodyPageContainer>
       <Footer />
     </RateCompanyPageContainer>
