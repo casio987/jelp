@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 import { Logger } from "winston";
 import { getLogger } from "./Logger";
 import "dotenv/config";
@@ -11,7 +11,18 @@ export class Database {
   private logger: Logger;
 
   constructor() {
-    this.dbConnection = new DataSource({
+    const connectionOptions: DataSourceOptions = process.env.DATABASE_URL ? {
+      type: "postgres",
+      url: process.env.DATABASE_URL,
+      entities: [
+        UserEntity,
+        CompanyReviewEntity,
+        InterviewReviewEntity
+      ],
+      synchronize: true,
+      logging: false,
+      ssl: true,
+    } : {
       type: "postgres",
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
@@ -27,7 +38,9 @@ export class Database {
       ],
       migrations: [],
       subscribers: [],
-    })
+    };
+
+    this.dbConnection = new DataSource(connectionOptions)
     this.logger = getLogger();
 
   }
