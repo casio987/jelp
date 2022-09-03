@@ -1,3 +1,5 @@
 # jelp
+A web-based application that allows users to read and write reviews
+of companies as well as any interviews done at said companies.
 
-[**Link to figma designs**](https://www.figma.com/file/7BRp7vmQI5bekdOV5e6vod/jelp?node-id=0%3A1)
+Check it out at [here](https://jelp987.netlify.app/)!
