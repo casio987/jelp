@@ -42,6 +42,7 @@ class Database {
             ssl: true,
             extra: {
                 ssl: {
+                    require: true,
                     rejectUnauthorised: false,
                 }
             }
