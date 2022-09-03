@@ -29,7 +29,18 @@ class Database {
             if (this.dbConnection.isInitialized)
                 yield this.dbConnection.destroy();
         });
-        this.dbConnection = new typeorm_1.DataSource({
+        const connectionOptions = process.env.DATABASE_URL ? {
+            type: "postgres",
+            url: process.env.DATABASE_URL,
+            entities: [
+                user_1.UserEntity,
+                companyReview_1.CompanyReviewEntity,
+                interviewReview_1.InterviewReviewEntity
+            ],
+            synchronize: true,
+            logging: false,
+            ssl: true,
+        } : {
             type: "postgres",
             host: process.env.DB_HOST,
             port: Number(process.env.DB_PORT),
@@ -45,7 +56,8 @@ class Database {
             ],
             migrations: [],
             subscribers: [],
-        });
+        };
+        this.dbConnection = new typeorm_1.DataSource(connectionOptions);
         this.logger = (0, Logger_1.getLogger)();
     }
 }
