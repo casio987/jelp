@@ -1,10 +1,9 @@
 import { IAuthResponse } from "../interfaces/api-responses";
-import { API_URL } from "./config";
 import axios from "axios";
 
 export const postLogin = async (email: string, password: string): Promise<IAuthResponse> => {
   try {
-    const { status, data } = await axios.post(`${API_URL}/api/user/login`, {
+    const { status, data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/login`, {
       email,
       password
     });
@@ -17,7 +16,7 @@ export const postLogin = async (email: string, password: string): Promise<IAuthR
 
 export const postRegister = async (email: string, password: string): Promise<IAuthResponse> => {
   try {
-    const { status, data } = await axios.post(`${API_URL}/api/user/register`, {
+    const { status, data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/register`, {
       email,
       password
     });

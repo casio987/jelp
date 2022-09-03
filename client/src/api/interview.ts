@@ -1,5 +1,4 @@
 import { IEmptyResponse, IInterviewResponse, IInterviewsResponse } from "../interfaces/api-responses";
-import { API_URL } from "./config";
 import axios from "axios";
 
 export const postInterviewReview = async (
@@ -11,7 +10,7 @@ export const postInterviewReview = async (
   offerReceived: boolean
 ): Promise<IEmptyResponse> => {
   try {
-    const { status, data } = await axios.post(`${API_URL}/api/interview`, {
+    const { status, data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/interview`, {
       atCompany,
       jobTitle,
       experience,
@@ -32,7 +31,7 @@ export const postInterviewReview = async (
 
 export const getInterviewReview = async (interviewReviewId: string): Promise<IInterviewResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/interview/${interviewReviewId}`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/interview/${interviewReviewId}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -45,7 +44,7 @@ export const getInterviewReview = async (interviewReviewId: string): Promise<IIn
 
 export const getSelfInterviewReviews = async (): Promise<IInterviewsResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/self/interview`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/self/interview`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -58,7 +57,7 @@ export const getSelfInterviewReviews = async (): Promise<IInterviewsResponse> =>
 
 export const getInterviewReviews = async (): Promise<IInterviewsResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/interview`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/interview`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -71,7 +70,7 @@ export const getInterviewReviews = async (): Promise<IInterviewsResponse> => {
 
 export const getSimilarInterviewReviews = async (companyName: string, interviewReviewId: string): Promise<IInterviewsResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/interview/similar/${companyName}/${interviewReviewId}`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/interview/similar/${companyName}/${interviewReviewId}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }

@@ -1,10 +1,9 @@
 import axios from "axios";
 import { ICompaniesResponse, ICompanyResponse, IEmptyResponse } from "../interfaces/api-responses";
-import { API_URL } from "./config";
 
 export const getCompanyReview = async (companyReviewId: string): Promise<ICompanyResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/company/${companyReviewId}`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/company/${companyReviewId}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -23,7 +22,7 @@ export const postCompanyReview = async (
   isCurrentEmployee: boolean
 ): Promise<IEmptyResponse> => {
   try {
-    const { status, data } = await axios.post(`${API_URL}/api/company`, {
+    const { status, data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/company`, {
       atCompany,
       jobTitle,
       experience,
@@ -43,7 +42,7 @@ export const postCompanyReview = async (
 
 export const getSelfCompanyReviews = async (): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/self/company`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/self/company`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -56,7 +55,7 @@ export const getSelfCompanyReviews = async (): Promise<ICompaniesResponse> => {
 
 export const getCompanyReviews = async (): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/company`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/company`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
@@ -69,7 +68,7 @@ export const getCompanyReviews = async (): Promise<ICompaniesResponse> => {
 
 export const getSimilarCompanyReviews = async (companyName: string, companyReviewId: string): Promise<ICompaniesResponse> => {
   try {
-    const { status, data } = await axios.get(`${API_URL}/api/company/similar/${companyName}/${companyReviewId}`, {
+    const { status, data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/company/similar/${companyName}/${companyReviewId}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
       }
