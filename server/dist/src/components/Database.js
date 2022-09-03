@@ -40,6 +40,11 @@ class Database {
             synchronize: true,
             logging: false,
             ssl: true,
+            extra: {
+                ssl: {
+                    rejectUnauthorised: false,
+                }
+            }
         } : {
             type: "postgres",
             host: process.env.DB_HOST,
