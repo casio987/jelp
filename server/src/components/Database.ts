@@ -57,7 +57,9 @@ export class Database {
   public start = async () => {
     await this.dbConnection.initialize();
     this.logger.info('started connection to db');
-    await seed(this.dbConnection.manager);
+    if (process.env.NODE_ENV === "development") {
+      await seed(this.dbConnection.manager);
+    }
   }
 
   public stop = async () => {

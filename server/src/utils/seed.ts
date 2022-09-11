@@ -9,7 +9,6 @@ const logger = getLogger();
 
 export const seed = async (manager: EntityManager) => {
   logger.info("Attempting to seed DB.");
-  // if (process.env.NODE_ENV === "development")
 
   const bob = new UserEntity();
   bob.email = "bob@gmail.com";
