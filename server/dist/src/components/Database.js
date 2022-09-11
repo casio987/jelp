@@ -23,7 +23,9 @@ class Database {
         this.start = () => __awaiter(this, void 0, void 0, function* () {
             yield this.dbConnection.initialize();
             this.logger.info('started connection to db');
-            yield (0, seed_1.seed)(this.dbConnection.manager);
+            if (process.env.NODE_ENV === "development") {
+                yield (0, seed_1.seed)(this.dbConnection.manager);
+            }
         });
         this.stop = () => __awaiter(this, void 0, void 0, function* () {
             if (this.dbConnection.isInitialized)

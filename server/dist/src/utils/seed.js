@@ -18,7 +18,6 @@ const Logger_1 = require("../components/Logger");
 const logger = (0, Logger_1.getLogger)();
 const seed = (manager) => __awaiter(void 0, void 0, void 0, function* () {
     logger.info("Attempting to seed DB.");
-    // if (process.env.NODE_ENV === "development")
     const bob = new user_1.UserEntity();
     bob.email = "bob@gmail.com";
     bob.password = (0, crypt_1.hash)("belmont");
